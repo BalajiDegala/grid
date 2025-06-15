@@ -53,8 +53,11 @@ export default function TimeNode({ data, id }: TimeNodeProps) {
     return () => clearInterval(interval);
   }, [data.type]);
 
+  // Add special class for date node
+  const nodeClass = id === 'date' ? 'time-node date-node' : 'time-node';
+
   return (
-    <div className="time-node" data-node-id={id}>
+    <div className={nodeClass} data-node-id={id} data-id={id}>
       <div className="node-corner top-left"></div>
       <div className="node-corner top-right"></div>
       <div className="node-corner bottom-left"></div>
