@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import {
-  BaseEdge,
   EdgeLabelRenderer,
   useReactFlow,
   EdgeProps
@@ -8,14 +7,6 @@ import {
 
 // Type for control points, but no generics needed
 type ControlPoint = { x: number; y: number };
-
-function getAngle(x1: number, y1: number, x2: number, y2: number) {
-  return (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
-}
-
-function getDistance(x1: number, y1: number, x2: number, y2: number) {
-  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-}
 
 export default function EditableEdge({
   id,
@@ -35,7 +26,6 @@ export default function EditableEdge({
     setEdges((edges) => edges.filter((edge) => edge.id !== id));
   }, [id, setEdges]);
 
-  let edgePath: string = '';
   let labelX = (sourceX + targetX) / 2;
   let labelY = (sourceY + targetY) / 2;
 
@@ -44,46 +34,15 @@ export default function EditableEdge({
     : undefined;
 
   if (controlPoints && controlPoints.length > 0) {
-    // Freeform: draw polyline through control points
-    const points = [
-      { x: sourceX, y: sourceY },
-      ...controlPoints,
-      { x: targetX, y: targetY },
-    ];
-    edgePath = `M ${points[0].x} ${points[0].y}`;
-    for (let i = 1; i < points.length; i++) {
-      edgePath += ` L ${points[i].x} ${points[i].y}`;
-    }
-    // Place label at the center control point if possible
-    const midIndex = Math.floor(points.length / 2);
-    labelX = points[midIndex].x;
-    labelY = points[midIndex].y;
-  } else {
-    // STRAIGHT LINE: as a pill-like rectangle with a delete button
-    edgePath = `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
-    labelX = (sourceX + targetX) / 2;
-    labelY = (sourceY + targetY) / 2;
+    // For freeform edges, place label at the center control point if possible
+    const midIndex = Math.floor(controlPoints.length / 2);
+    labelX = controlPoints[midIndex]?.x || labelX;
+    labelY = controlPoints[midIndex]?.y || labelY;
   }
-
-  // Rectangle node settings
-  const rectDistance = getDistance(sourceX, sourceY, targetX, targetY);
-  const rectMidX = labelX;
-  const rectMidY = labelY;
-  const rectAngle = getAngle(sourceX, sourceY, targetX, targetY);
-  const rectHeight = 24;
-  const rectWidth = Math.max(56, rectDistance - 14); // Minimum width, leave some margin
 
   return (
     <>
-      <BaseEdge
-        path={edgePath}
-        markerEnd={markerEnd}
-        style={{
-          strokeWidth: 2,
-          stroke: '#4E6CF3',
-          ...style,
-        }}
-      />
+      {/* Control points for freeform edges */}
       {controlPoints?.map((point, idx) => (
         <circle
           key={idx}
@@ -100,7 +59,7 @@ export default function EditableEdge({
         />
       ))}
 
-      {/* Rectangle pill for straight lines only (not for freeform edges) */}
+      {/* Node-like rectangular connection for straight lines */}
       {!controlPoints?.length && (
         <EdgeLabelRenderer>
           <div
@@ -108,67 +67,70 @@ export default function EditableEdge({
               position: 'absolute',
               left: 0,
               top: 0,
-              transform: `
-                translate(-50%, -50%)
-                translate(${rectMidX}px, ${rectMidY}px)
-                rotate(${rectAngle}deg)
-              `,
-              width: `${rectWidth}px`,
-              height: `${rectHeight}px`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
               pointerEvents: 'all',
               zIndex: 18,
             }}
           >
             <div
+              className="connection-node"
               style={{
-                background: '#306ACD',
-                border: '2px solid #BCD0FB',
-                color: '#fff',
-                borderRadius: '999px',
-                boxShadow: '0 1.5px 11px #2e49882c',
-                height: rectHeight,
-                width: rectWidth,
+                background: '#fff',
+                borderRadius: '8px',
+                border: '1.5px solid #CBD5E1',
+                boxShadow: '0 1.5px 6px #0001',
+                minWidth: '120px',
+                height: '40px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
+                padding: '8px 12px',
                 fontFamily: 'inherit',
                 fontSize: '13px',
-                fontWeight: 500,
-                letterSpacing: '0.05em',
-                cursor: 'pointer',
-                transition: 'box-shadow 0.18s',
+                fontWeight: '500',
+                color: '#31518a',
                 position: 'relative',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#f3f7fd';
+                e.currentTarget.style.borderColor = '#306ACD';
+                e.currentTarget.style.color = '#19398a';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#fff';
+                e.currentTarget.style.borderColor = '#CBD5E1';
+                e.currentTarget.style.color = '#31518a';
               }}
             >
-              {/* Centered delete button - you can also show type or label here */}
+              <span>Connection</span>
               <button
-                className="editable-edge-button"
                 onClick={onEdgeClick}
                 style={{
                   background: '#fff',
-                  border: '1.3px solid #dee3f1',
+                  border: '1px solid #dee3f1',
                   borderRadius: '50%',
-                  width: '24px',
-                  height: '24px',
+                  width: '20px',
+                  height: '20px',
                   cursor: 'pointer',
                   color: '#4565d6',
-                  fontSize: '18px',
-                  fontWeight: 600,
-                  marginLeft: 0,
-                  marginRight: 0,
-                  marginTop: 0,
-                  marginBottom: 0,
-                  boxShadow: '0 1px 3px #0001',
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: 2,
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 1px 2px #0001',
+                  transition: 'all 0.2s ease',
                 }}
-                title="Delete edge"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#e0e7ef';
+                  e.currentTarget.style.boxShadow = '0 2px 4px #306acd34';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#fff';
+                  e.currentTarget.style.boxShadow = '0 1px 2px #0001';
+                }}
+                title="Delete connection"
               >
                 ×
               </button>
@@ -177,7 +139,7 @@ export default function EditableEdge({
         </EdgeLabelRenderer>
       )}
 
-      {/* Label pill for freeform: keep text button at relevant position for freeform */}
+      {/* Label for freeform edges - keep simple delete button */}
       {controlPoints?.length > 0 && (
         <EdgeLabelRenderer>
           <div
