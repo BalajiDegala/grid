@@ -1,3 +1,4 @@
+
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import {
   ReactFlow,
@@ -20,17 +21,22 @@ import CustomConnectionLine from './CustomConnectionLine';
 import { useSpaceKey } from '../hooks/useSpaceKey';
 import { THEME, WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
+// Revised grid layout positions:
 const nodePositions = {
-  day:        { x: 200, y: 50 },
-  date:       { x: 540, y: 50 },
-  localTime:  { x: 200, y: 190 },
-  laTime:     { x: 540, y: 190 },
-  google:     { x: 60,  y: 370 },
-  github:     { x: 180, y: 370 },
-  youtube:    { x: 510, y: 370 },
-  twitter:    { x: 680, y: 370 },
-  netflix:    { x: 240, y: 525 },
-  spotify:    { x: 590, y: 525 },
+  // 1st row, date node only
+  date:       { x: 400, y: 40 },
+  // 2nd row, day node
+  day:        { x: 400, y: 140 },
+  // 3rd row, two time nodes
+  localTime:  { x: 220, y: 260 },
+  laTime:     { x: 580, y: 260 },
+  // 4th row, spread out website nodes horizontally
+  google:     { x: 40,  y: 410 },
+  github:     { x: 180, y: 410 },
+  youtube:    { x: 340, y: 410 },
+  twitter:    { x: 500, y: 410 },
+  netflix:    { x: 660, y: 410 },
+  spotify:    { x: 820, y: 410 },
 };
 
 const nodeTypes = {
@@ -137,7 +143,7 @@ export default function NodeGraph() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
+        edgeTypes={{ editableEdge: EditableEdge }}
         connectionLineComponent={CustomConnectionLine}
         fitView
         minZoom={0.4}
@@ -162,3 +168,4 @@ export default function NodeGraph() {
     </div>
   );
 }
+
