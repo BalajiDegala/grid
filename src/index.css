@@ -2,141 +2,188 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font (modern, sans-serif) */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+/* Import monospace font for digital look */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-/* Base theme variables */
+/* TRON Legacy Base theme */
 @layer base {
   :root {
-    --main-bg: #18222b;
-    --panel-bg: #222e38;
-    --brand-cyan: #32e6e2; /* Node handle + accent */
-    --brand-orange: #fdab3d; /* Main edge */
-    --edge-alt: #fd6161; /* Disabled/error edge */
-    --node-caption: #e6edf3;
-    --node-sub-caption: #b6c3d0;
-    --node-border: #374756;
-    --node-border-active: #32e6e2;
-    --handle-border: #242e39;
-    --backdrop: rgba(50, 61, 74, 0.80);
-    --node-radius: 10px;
+    --main-bg: #0b1120;
+    --panel-bg: #172133;
+    --brand-cyan: #32e6e2;
+    --brand-cyan-glow: #00fff787;
+    --node-border: #00fff7;
+    --node-radius: 0px;
+    --node-bg: #070c19;
+    --node-shadow: 0 0 14px 1px #00fff7bb, 0 0 1.5px #32e6e2;
+    --text-cyan: #32e6e2;
+    --text-white: #eaffff;
   }
 }
 
-/* Body and font */
 body {
-  @apply bg-background text-foreground;
-  font-family: 'IBM Plex Sans', monospace, sans-serif;
-  background: linear-gradient(120deg,#161e29 0%,#232b39 100%) !important;
+  background: #05090c;
   min-height: 100vh;
+  font-family: 'Orbitron', monospace, sans-serif;
+  color: var(--text-cyan);
+  letter-spacing: 0.03em;
+  overscroll-behavior: none;
+}
+
+/* TRON grid lines (animated) */
+@keyframes tron-grid-move {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 60px 60px, 60px 60px; }
+}
+
+.tron-bg {
+  background: 
+    repeating-linear-gradient(0deg, #16b1bf12, #16b1bf19 1px, transparent 2px, transparent 60px),
+    repeating-linear-gradient(90deg, #16b1bf12, #16b1bf19 1px, transparent 2px, transparent 60px),
+    #060b13;
+  animation: tron-grid-move 16s linear infinite;
+  background-size: 60px 60px, 60px 60px;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 0;
+  top: 0; left: 0;
+}
+
+/* TRON 'stream light' particles */
+.tron-particles {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 1;
+}
+.tron-particle {
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background: var(--brand-cyan);
+  box-shadow: 0 0 18px 7px var(--brand-cyan-glow);
+  border-radius: 4px;
+  opacity: .78;
+  filter: blur(0.6px);
+  animation: tron-particle-move 7s linear infinite;
+}
+@keyframes tron-particle-move {
+  to { transform: translateY(150vh) scaleY(1.1); opacity: 0.18; }
 }
 
 .neon-flow, .react-flow__background {
   background: transparent !important;
-}
-
-/* MAKE THE GRID LESS INTRUSIVE, FLAT LOOK */
-.react-flow__background {
   opacity: 0.18;
 }
 
-/* Node Styles */
+/* TRONy nodes: sharp rectangles, neon glow, only cyan (NO other border colors) */
 .time-node, .website-node {
-  background: rgba(29,38,57,0.97);
-  border-radius: 14px;
-  border: 2.5px solid #272f3b;
-  box-shadow: 0 6px 24px 0 rgba(44,179,255,0.10);
-  min-width: 160px;
-  max-width: 220px;
+  background: var(--node-bg);
+  border-radius: var(--node-radius);
+  border: 2.5px solid var(--brand-cyan);
+  box-shadow: var(--node-shadow);
+  min-width: 168px;
+  max-width: 230px;
   text-align: left;
   padding: 18px 16px;
-  font-family: 'IBM Plex Sans', monospace, sans-serif;
-  transition: none;
+  font-family: 'Orbitron', monospace, sans-serif;
   position: relative;
   overflow: hidden;
+  color: var(--text-cyan);
+  transition: none;
 }
 
-.time-node {
-  border-color: #32e6e2;
+.time-node, .website-node {
+  border-color: var(--brand-cyan);
 }
-.website-node {
-  border-color: #f7b03b;
-  cursor: pointer;
+
+.website-node { 
+  cursor: pointer; 
+  background: #090d16d9;
 }
 
 .node-content {
   background: transparent;
-  border-radius: 6px;
+  border-radius: 0px;
   padding: 0;
   border: none;
 }
+
 .node-label {
-  font-size: 1.02rem;
+  font-size: 1.08rem;
   font-weight: 700;
-  color: #32e6e2;
+  color: var(--text-cyan);
   margin-bottom: 2px;
   font-family: inherit;
+  text-shadow: 0 0 12px #22e3f8ee, 0 0 2px #00fff744; 
+  letter-spacing: 0.05em;
 }
 .node-value, .node-subtitle {
   font-size: 0.97rem;
-  color: #e6edf3;
+  color: var(--text-white);
   font-weight: 500;
+  text-shadow: 0 0 8px #19989879;
 }
 .node-subtitle {
-  color: #f7b03b;
-  font-size: 0.92rem;
+  color: var(--brand-cyan);
+  text-shadow: 0 0 10px #32e6e2;
+  font-size: 0.91rem;
 }
 
+/* TRON nodes - only neon cyan handles */
 .neon-handle {
-  background: #32e6e2 !important;
-  border: 3px solid #242e39 !important;
-  width: 16px !important;
-  height: 16px !important;
-  border-radius: 8px;
-  box-shadow: none !important;
-  transition: none !important;
+  background: var(--brand-cyan) !important;
+  border: 3px solid #184656 !important;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 10px 4px var(--brand-cyan-glow);
 }
 
-.neon-handle:hover {
-  background: #fdab3d !important;
-  border-color: #fdab3d !important;
-  box-shadow: 0 0 9px #fdab3d;
-  transform: scale(1.08) !important;
-}
-
-/* Edge Styles */
+/* Edges: Only neon cyan solid and a subtle blue glow */
 .react-flow__edge-path {
-  filter: none;
-  stroke-width: 2.5 !important;
-  stroke-dasharray: 5, 5;
+  stroke: #32e6e2 !important;
+  stroke-width: 3.2 !important;
+  stroke-dasharray: none !important;
+  filter: drop-shadow(0 0 3px #00fff7ee);
   opacity: 0.97;
-  transition: none;
 }
 
-/* Controls & Minimap */
-.react-flow__minimap,
-.react-flow__controls {
-  background: #202534 !important;
+.react-flow__edge:hover .react-flow__edge-path,
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #42fdff !important;
+}
+
+.react-flow__controls,
+.react-flow__minimap {
+  background: #091621cc !important;
   border: 2px solid #32e6e2 !important;
-  border-radius: 9px !important;
-  box-shadow: none !important;
+  border-radius: 14px !important;
+  box-shadow: 0 0 0px 2px #0ae9ffe8;
+}
+
+.react-flow__minimap .react-flow__minimap-node {
+  fill: #00fff7bb !important;
+  stroke: #32e6e2 !important;
 }
 
 .react-flow__attribution {
-  background: rgba(15,20,34, 0.60) !important;
+  background: #12222e90 !important;
   color: #32e6e2 !important;
   border: 1.5px solid #32e6e2 !important;
-  border-radius: 6px !important;
+  border-radius: 8px !important;
 }
 
 /* Responsive improvements for graph nodes */
 @media (max-width: 900px) {
   .time-node, .website-node {
-    min-width: 128px;
-    max-width: 165px;
-    font-size: 0.95rem;
-    padding: 15px 8px;
+    min-width: 115px;
+    max-width: 140px;
+    font-size: 0.93rem;
+    padding: 14px 7px;
   }
-  .node-label { font-size: 0.95rem;}
-  .node-value, .node-subtitle { font-size: 0.91rem;}
+  .node-label { font-size: 0.92rem;}
+  .node-value, .node-subtitle { font-size: 0.88rem;}
 }

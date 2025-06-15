@@ -1,5 +1,5 @@
 
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useEffect } from 'react';
 import {
   ReactFlow,
   Background,
@@ -17,21 +17,20 @@ import {
 import '@xyflow/react/dist/style.css';
 import TimeNode from './TimeNode';
 import WebsiteNode from './WebsiteNode';
-
 import { THEME, WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
-// Helper: define position layouts (can be extended for config)
+// Positioning: grid layout, more "TRON"
 const nodePositions = {
-  day:        { x: 350, y: 110 },
-  date:       { x: 570, y: 110 },
-  localTime:  { x: 350, y: 260 },
-  laTime:     { x: 570, y: 260 },
-  google:     { x: 80,  y: 420 },
-  github:     { x: 220, y: 420 },
-  youtube:    { x: 500, y: 420 },
-  twitter:    { x: 720, y: 420 },
-  netflix:    { x: 340, y: 580 },
-  spotify:    { x: 580, y: 580 },
+  day:        { x: 340, y: 70 },
+  date:       { x: 650, y: 70 },
+  localTime:  { x: 340, y: 225 },
+  laTime:     { x: 650, y: 225 },
+  google:     { x: 60,  y: 405 },
+  github:     { x: 190, y: 405 },
+  youtube:    { x: 505, y: 405 },
+  twitter:    { x: 735, y: 405 },
+  netflix:    { x: 300, y: 550 },
+  spotify:    { x: 660, y: 550 },
 };
 
 const nodeTypes = {
@@ -40,14 +39,12 @@ const nodeTypes = {
 };
 
 function buildNodes() {
-  // Time nodes
   const nodes: Node[] = TIME_NODES.map(n => ({
     id: n.id,
     type: 'timeNode',
     position: nodePositions[n.id] || { x: 0, y: 0 },
     data: { label: n.label, type: n.type }
   }));
-  // Website nodes
   WEBSITE_NODES.forEach(w => {
     nodes.push({
       id: w.id,
@@ -60,26 +57,18 @@ function buildNodes() {
 }
 
 function buildEdges() {
-  // Connection color based on "kind"
-  function color(kind: string) {
-    if (kind === "temporal") return "#32e6e2";
-    if (kind === "utility") return "#fdab3d";
-    if (kind === "entertainment") return "#f955a4";
-    if (kind === "social") return "#2fc3f2";
-    if (kind === "media") return "#badc58";
-    if (kind === "tutorials") return "#c77dff";
-    return "#fdab3d";
-  }
+  // Only one stroke color: neon cyan
   return CONNECTIONS.map((c, i) => ({
     id: `e-${c.source}-${c.target}`,
     source: c.source,
     target: c.target,
     type: 'straight',
     style: {
-      stroke: color(c.kind),
-      strokeWidth: 2.5,
-      strokeDasharray: '5,5',
-      opacity: 0.95
+      stroke: "#32e6e2",
+      strokeWidth: 3.2,
+      strokeDasharray: '',
+      opacity: 0.97,
+      filter: "drop-shadow(0 0 8px #00fff7)"
     }
   })) as Edge[];
 }
@@ -87,7 +76,6 @@ function buildEdges() {
 export default function NodeGraph() {
   const initialNodes = useMemo(buildNodes, []);
   const initialEdges = useMemo(buildEdges, []);
-
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
@@ -96,9 +84,42 @@ export default function NodeGraph() {
     [setEdges]
   );
 
-  // Use theme background
+  // Add stream light particles and a TRON grid background
+  useEffect(() => {
+    // Add TRON background if not present
+    if (!document.querySelector('.tron-bg')) {
+      const bg = document.createElement('div');
+      bg.className = 'tron-bg';
+      document.body.appendChild(bg);
+    }
+    // Add TRON particles if not present
+    if (!document.querySelector('.tron-particles')) {
+      const pt = document.createElement('div');
+      pt.className = 'tron-particles';
+      // Minimal 22 particles
+      for (let i = 0; i < 22; i++) {
+        const p = document.createElement('div');
+        p.className = 'tron-particle';
+        p.style.left = Math.floor(Math.random() * 98) + 'vw';
+        p.style.top = -Math.random() * 30 + 'vh';
+        p.style.animationDuration = (6 + Math.random() * 4) + 's';
+        p.style.opacity = (0.19 + Math.random() * 0.52).toString();
+        p.style.width = (2 + Math.random() * 1.8) + 'px';
+        pt.appendChild(p);
+      }
+      document.body.appendChild(pt);
+    }
+    return () => {
+      // Clean up if unmounting
+      const bg = document.querySelector('.tron-bg');
+      if (bg) bg.remove();
+      const pt = document.querySelector('.tron-particles');
+      if (pt) pt.remove();
+    }
+  }, []);
+
   return (
-    <div className="w-full h-screen" style={{ background: THEME.background }}>
+    <div className="w-full h-screen">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -112,12 +133,7 @@ export default function NodeGraph() {
         maxZoom={1.6}
         zoomOnDoubleClick={true}
       >
-        <Background 
-          variant={BackgroundVariant.Dots}
-          gap={22}
-          size={1.5}
-          color="#2a4155"
-        />
+        {/* No dots - background with our own tron grid */}
         <Controls 
           className="neon-controls"
           showZoom={true}
@@ -126,12 +142,8 @@ export default function NodeGraph() {
         />
         <MiniMap 
           className="neon-minimap"
-          nodeColor={(n) =>
-            n.type === "timeNode"
-              ? THEME.node.accent
-              : THEME.node.edge
-          }
-          maskColor="rgba(0, 0, 0, 0.88)"
+          nodeColor={() => "#32e6e2"}
+          maskColor="rgba(0, 0, 0, 0.86)"
         />
       </ReactFlow>
     </div>
