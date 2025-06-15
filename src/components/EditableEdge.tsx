@@ -1,4 +1,3 @@
-
 import React, { useCallback } from 'react';
 import {
   BaseEdge,
@@ -53,7 +52,7 @@ export default function EditableEdge({
     labelX = points[midIndex].x;
     labelY = points[midIndex].y;
   } else {
-    // STRAIGHT LINE: draw simple line (no bezier curve)
+    // STRAIGHT LINE: draw simple SVG line between source and target
     edgePath = `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
     labelX = (sourceX + targetX) / 2;
     labelY = (sourceY + targetY) / 2;
@@ -118,4 +117,3 @@ export default function EditableEdge({
     </>
   );
 }
-
