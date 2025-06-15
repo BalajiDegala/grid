@@ -11,7 +11,6 @@ import {
   Connection,
   Edge,
   Node,
-  BackgroundVariant,
   Position,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -19,18 +18,18 @@ import TimeNode from './TimeNode';
 import WebsiteNode from './WebsiteNode';
 import { THEME, WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
-// Positioning: grid layout, more "TRON"
+// ** Center the grid more dynamically **
 const nodePositions = {
-  day:        { x: 340, y: 70 },
-  date:       { x: 650, y: 70 },
-  localTime:  { x: 340, y: 225 },
-  laTime:     { x: 650, y: 225 },
-  google:     { x: 60,  y: 405 },
-  github:     { x: 190, y: 405 },
-  youtube:    { x: 505, y: 405 },
-  twitter:    { x: 735, y: 405 },
-  netflix:    { x: 300, y: 550 },
-  spotify:    { x: 660, y: 550 },
+  day:        { x: 200, y: 50 },
+  date:       { x: 540, y: 50 },
+  localTime:  { x: 200, y: 190 },
+  laTime:     { x: 540, y: 190 },
+  google:     { x: 60,  y: 370 },
+  github:     { x: 180, y: 370 },
+  youtube:    { x: 510, y: 370 },
+  twitter:    { x: 680, y: 370 },
+  netflix:    { x: 240, y: 525 },
+  spotify:    { x: 590, y: 525 },
 };
 
 const nodeTypes = {
@@ -43,21 +42,34 @@ function buildNodes() {
     id: n.id,
     type: 'timeNode',
     position: nodePositions[n.id] || { x: 0, y: 0 },
-    data: { label: n.label, type: n.type }
+    data: { label: n.label, type: n.type },
+    style: {
+      zIndex: 15,
+    }
   }));
   WEBSITE_NODES.forEach(w => {
     nodes.push({
       id: w.id,
       type: 'websiteNode',
       position: nodePositions[w.id] || { x: 0, y: 0 },
-      data: { label: w.label, url: w.url }
+      data: { label: w.label, url: w.url },
+      style: {
+        zIndex: 16,
+      }
     });
   });
-  return nodes;
+  // Add debug outline
+  return nodes.map(node => ({
+    ...node,
+    className: (node.type === 'websiteNode' || node.type === 'timeNode')
+      ? 'node-debug-outline'
+      : '',
+    data: { ...node.data, debugId: node.id }
+  }));
 }
 
 function buildEdges() {
-  // Only one stroke color: neon cyan
+  // Only neon cyan
   return CONNECTIONS.map((c, i) => ({
     id: `e-${c.source}-${c.target}`,
     source: c.source,
@@ -66,8 +78,6 @@ function buildEdges() {
     style: {
       stroke: "#32e6e2",
       strokeWidth: 3.2,
-      strokeDasharray: '',
-      opacity: 0.97,
       filter: "drop-shadow(0 0 8px #00fff7)"
     }
   })) as Edge[];
@@ -84,33 +94,31 @@ export default function NodeGraph() {
     [setEdges]
   );
 
-  // Add stream light particles and a TRON grid background
   useEffect(() => {
     // Add TRON background if not present
     if (!document.querySelector('.tron-bg')) {
       const bg = document.createElement('div');
       bg.className = 'tron-bg';
+      bg.style.zIndex = '1';
       document.body.appendChild(bg);
     }
-    // Add TRON particles if not present
     if (!document.querySelector('.tron-particles')) {
       const pt = document.createElement('div');
       pt.className = 'tron-particles';
-      // Minimal 22 particles
+      pt.style.zIndex = '2';
       for (let i = 0; i < 22; i++) {
         const p = document.createElement('div');
         p.className = 'tron-particle';
         p.style.left = Math.floor(Math.random() * 98) + 'vw';
         p.style.top = -Math.random() * 30 + 'vh';
         p.style.animationDuration = (6 + Math.random() * 4) + 's';
-        p.style.opacity = (0.19 + Math.random() * 0.52).toString();
-        p.style.width = (2 + Math.random() * 1.8) + 'px';
+        p.style.opacity = (0.25 + Math.random() * 0.43).toString();
+        p.style.width = (2.6 + Math.random() * 2) + 'px';
         pt.appendChild(p);
       }
       document.body.appendChild(pt);
     }
     return () => {
-      // Clean up if unmounting
       const bg = document.querySelector('.tron-bg');
       if (bg) bg.remove();
       const pt = document.querySelector('.tron-particles');
@@ -119,7 +127,7 @@ export default function NodeGraph() {
   }, []);
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen z-[12] relative">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -128,12 +136,11 @@ export default function NodeGraph() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
+        minZoom={0.4}
+        maxZoom={1.2}
         className="neon-flow"
-        minZoom={0.3}
-        maxZoom={1.6}
-        zoomOnDoubleClick={true}
+        attributionPosition="top-right"
       >
-        {/* No dots - background with our own tron grid */}
         <Controls 
           className="neon-controls"
           showZoom={true}
@@ -143,7 +150,7 @@ export default function NodeGraph() {
         <MiniMap 
           className="neon-minimap"
           nodeColor={() => "#32e6e2"}
-          maskColor="rgba(0, 0, 0, 0.86)"
+          maskColor="rgba(0,0,0,0.92)"
         />
       </ReactFlow>
     </div>

@@ -1,23 +1,21 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import monospace font for digital look */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-/* TRON Legacy Base theme */
+/* TRON Legacy Core Theme */
 @layer base {
   :root {
-    --main-bg: #0b1120;
-    --panel-bg: #172133;
+    --main-bg: #080b13;
+    --panel-bg: #0a1121;
     --brand-cyan: #32e6e2;
-    --brand-cyan-glow: #00fff787;
     --node-border: #00fff7;
-    --node-radius: 0px;
-    --node-bg: #070c19;
-    --node-shadow: 0 0 14px 1px #00fff7bb, 0 0 1.5px #32e6e2;
+    --node-bg: #0c131e;
+    --node-shadow: 0 0 16px 2px #00fff7bb, 0 0 1.5px #32e6e2, 0 0 12px #32e6e2cc;
     --text-cyan: #32e6e2;
     --text-white: #eaffff;
+    --node-radius: 0px;
   }
 }
 
@@ -26,11 +24,12 @@ body {
   min-height: 100vh;
   font-family: 'Orbitron', monospace, sans-serif;
   color: var(--text-cyan);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   overscroll-behavior: none;
+  z-index: 0;
 }
 
-/* TRON grid lines (animated) */
+/* TRON grid lines (animated, stronger) */
 @keyframes tron-grid-move {
   from { background-position: 0 0, 0 0; }
   to { background-position: 60px 60px, 60px 60px; }
@@ -38,117 +37,133 @@ body {
 
 .tron-bg {
   background: 
-    repeating-linear-gradient(0deg, #16b1bf12, #16b1bf19 1px, transparent 2px, transparent 60px),
-    repeating-linear-gradient(90deg, #16b1bf12, #16b1bf19 1px, transparent 2px, transparent 60px),
+    repeating-linear-gradient(0deg, #16b1bf22, #16b1bf27 1.1px, transparent 2.1px, transparent 60px),
+    repeating-linear-gradient(90deg, #16b1bf22, #16b1bf27 1.1px, transparent 2.1px, transparent 60px),
     #060b13;
-  animation: tron-grid-move 16s linear infinite;
+  animation: tron-grid-move 22s linear infinite;
   background-size: 60px 60px, 60px 60px;
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 0;
+  z-index: 1 !important;
   top: 0; left: 0;
+  pointer-events: none;
 }
 
-/* TRON 'stream light' particles */
+/* TRON neon stream light particles */
 .tron-particles {
   pointer-events: none;
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  z-index: 1;
+  z-index: 2 !important;
 }
 .tron-particle {
   position: absolute;
-  width: 2px;
-  height: 8px;
+  width: 3px;
+  height: 11px;
   background: var(--brand-cyan);
-  box-shadow: 0 0 18px 7px var(--brand-cyan-glow);
+  box-shadow: 0 0 24px 8px #00fff7dd;
   border-radius: 4px;
-  opacity: .78;
-  filter: blur(0.6px);
-  animation: tron-particle-move 7s linear infinite;
+  opacity: .76;
+  filter: blur(1.2px);
+  animation: tron-particle-move 7.9s linear infinite;
 }
 @keyframes tron-particle-move {
-  to { transform: translateY(150vh) scaleY(1.1); opacity: 0.18; }
+  to { transform: translateY(175vh) scaleY(1.07); opacity: 0.14; }
 }
 
 .neon-flow, .react-flow__background {
   background: transparent !important;
-  opacity: 0.18;
+  opacity: 0.19;
 }
 
-/* TRONy nodes: sharp rectangles, neon glow, only cyan (NO other border colors) */
+.node-debug-outline {
+  outline: 2.5px solid #00fff7aa !important;
+  box-shadow: 0 0 20px 1px #00fff777 !important;
+}
+
 .time-node, .website-node {
-  background: var(--node-bg);
-  border-radius: var(--node-radius);
-  border: 2.5px solid var(--brand-cyan);
-  box-shadow: var(--node-shadow);
-  min-width: 168px;
-  max-width: 230px;
+  background: var(--node-bg) !important;
+  border-radius: var(--node-radius) !important;
+  border: 2.8px solid var(--node-border) !important;
+  box-shadow: var(--node-shadow) !important;
+  min-width: 172px;
+  max-width: 238px;
   text-align: left;
-  padding: 18px 16px;
-  font-family: 'Orbitron', monospace, sans-serif;
+  padding: 20px 18px !important;
+  font-family: 'Orbitron', monospace, sans-serif !important;
   position: relative;
-  overflow: hidden;
-  color: var(--text-cyan);
-  transition: none;
+  overflow: visible !important;
+  color: var(--text-cyan) !important;
+  z-index: 10 !important;
+  margin: 0 !important;
 }
 
-.time-node, .website-node {
-  border-color: var(--brand-cyan);
-}
-
-.website-node { 
-  cursor: pointer; 
-  background: #090d16d9;
+.website-node {
+  cursor: pointer !important;
+  background: #090d16e6 !important;
 }
 
 .node-content {
-  background: transparent;
-  border-radius: 0px;
-  padding: 0;
-  border: none;
+  background: transparent !important;
+  border-radius: 0px !important;
+  padding: 0 !important;
+  border: none !important;
+  z-index: 10 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18em;
 }
-
 .node-label {
-  font-size: 1.08rem;
+  font-size: 1.12rem;
   font-weight: 700;
   color: var(--text-cyan);
   margin-bottom: 2px;
   font-family: inherit;
-  text-shadow: 0 0 12px #22e3f8ee, 0 0 2px #00fff744; 
-  letter-spacing: 0.05em;
+  text-shadow: 0 0 15px #22e3f8d0, 0 0 3px #00fff744; 
+  letter-spacing: 0.07em;
 }
 .node-value, .node-subtitle {
-  font-size: 0.97rem;
+  font-size: 1.01rem;
   color: var(--text-white);
-  font-weight: 500;
-  text-shadow: 0 0 8px #19989879;
+  font-weight: 600;
+  text-shadow: 0 0 9px #19989879;
 }
 .node-subtitle {
   color: var(--brand-cyan);
-  text-shadow: 0 0 10px #32e6e2;
+  text-shadow: 0 0 12px #32e6e2;
   font-size: 0.91rem;
 }
 
-/* TRON nodes - only neon cyan handles */
+/* Show node ID for debug */
+.node-debug-outline .node-content:after {
+  content: attr(data-debug-id);
+  position: absolute;
+  right: 6px; top: 2px;
+  font-size: 0.70em;
+  opacity: 0.4;
+  color: #32e6e2;
+  pointer-events: none;
+  font-family: inherit;
+  z-index: 12;
+}
+
 .neon-handle {
   background: var(--brand-cyan) !important;
   border: 3px solid #184656 !important;
   width: 18px !important;
   height: 18px !important;
   border-radius: 10px !important;
-  box-shadow: 0 0 10px 4px var(--brand-cyan-glow);
+  box-shadow: 0 0 10px 4px #00fff7bb;
+  z-index: 16 !important;
 }
 
-/* Edges: Only neon cyan solid and a subtle blue glow */
 .react-flow__edge-path {
   stroke: #32e6e2 !important;
   stroke-width: 3.2 !important;
-  stroke-dasharray: none !important;
-  filter: drop-shadow(0 0 3px #00fff7ee);
-  opacity: 0.97;
+  filter: drop-shadow(0 0 6px #00fff7ee);
+  opacity: 0.98;
 }
 
 .react-flow__edge:hover .react-flow__edge-path,
@@ -158,10 +173,11 @@ body {
 
 .react-flow__controls,
 .react-flow__minimap {
-  background: #091621cc !important;
+  background: #091621e4 !important;
   border: 2px solid #32e6e2 !important;
-  border-radius: 14px !important;
-  box-shadow: 0 0 0px 2px #0ae9ffe8;
+  border-radius: 18px !important;
+  box-shadow: 0 0 0px 2px #0ae9ff91;
+  z-index: 30 !important;
 }
 
 .react-flow__minimap .react-flow__minimap-node {
@@ -176,14 +192,14 @@ body {
   border-radius: 8px !important;
 }
 
-/* Responsive improvements for graph nodes */
+/* Responsive for graph nodes */
 @media (max-width: 900px) {
   .time-node, .website-node {
-    min-width: 115px;
+    min-width: 110px;
     max-width: 140px;
-    font-size: 0.93rem;
-    padding: 14px 7px;
+    font-size: 0.88rem !important;
+    padding: 12px 5px !important;
   }
-  .node-label { font-size: 0.92rem;}
-  .node-value, .node-subtitle { font-size: 0.88rem;}
+  .node-label { font-size: 0.86rem !important;}
+  .node-value, .node-subtitle { font-size: 0.82rem !important;}
 }

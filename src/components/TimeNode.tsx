@@ -6,6 +6,7 @@ interface TimeNodeProps {
   data: {
     label: string;
     type: 'day' | 'date' | 'time' | 'laTime';
+    debugId?: string;
   };
 }
 
@@ -15,7 +16,6 @@ export default function TimeNode({ data }: TimeNodeProps) {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      
       switch (data.type) {
         case 'day':
           setTimeValue(now.toLocaleDateString('en-US', { weekday: 'long' }));
@@ -55,7 +55,7 @@ export default function TimeNode({ data }: TimeNodeProps) {
   return (
     <div className="time-node">
       <Handle type="target" position={Position.Top} className="neon-handle" />
-      <div className="node-content">
+      <div className="node-content" data-debug-id={data.debugId || undefined}>
         <div className="node-label">{data.label}</div>
         <div className="node-value">{timeValue}</div>
       </div>
