@@ -1,4 +1,3 @@
-
 /*
   base.css: Core variables, fonts, and global styles for the TRON theme.
 */
@@ -11,8 +10,8 @@
     /* Color Palette */
     --color-primary: #32e6e2; /* Bright Cyan */
     --color-primary-glow: #00fff7;
-    --color-background-dark: #05090c;
-    --color-background-medium: #080b13;
+    --color-background-dark: #010203; /* Darker background */
+    --color-background-medium: #040609; /* Darker medium */
     --color-background-light: #0c131e;
     --color-text-primary: #eaffff;
     --color-text-accent: var(--color-primary);
