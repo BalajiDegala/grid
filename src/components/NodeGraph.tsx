@@ -12,6 +12,7 @@ import {
   Edge,
   Node,
   Position,
+  BackgroundVariant,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import TimeNode from './TimeNode';
@@ -121,9 +122,9 @@ export default function NodeGraph() {
           maskColor="rgba(0,0,0,0.92)"
         />
         <Background
-          variant="dots"
+          variant={BackgroundVariant.Dots}
           gap={60}
-          size={2}
+          size={3}
           color="#32e6e2"
           className="neon-background"
         />
