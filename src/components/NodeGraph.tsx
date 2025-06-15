@@ -110,8 +110,8 @@ export default function NodeGraph() {
         p.style.left = Math.floor(Math.random() * 98) + 'vw';
         p.style.top = -Math.random() * 30 + 'vh';
         p.style.animationDuration = (6 + Math.random() * 4) + 's';
-        p.style.opacity = (0.25 + Math.random() * 0.43).toString();
-        p.style.width = (2.6 + Math.random() * 2) + 'px';
+        p.style.opacity = (0.4 + Math.random() * 0.45).toString();
+        p.style.width = (3.0 + Math.random() * 2) + 'px';
         pt.appendChild(p);
       }
       document.body.appendChild(pt);
