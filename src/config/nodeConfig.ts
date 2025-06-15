@@ -1,4 +1,3 @@
-
 /**
  * TRON Legacy Node Graph Config: minimal neon cyan, grid-first.
  */
@@ -46,17 +45,17 @@ export const TIME_NODES = [
 ];
 
 // Only use cyan for all connections.
-// Removed github->youtube and youtube->spotify to avoid horizontal/parent-child links on last line.
+// Reworked: All website nodes are only children of localTime (single parent).
 export const CONNECTIONS = [
-  { source: "day", target: "date", kind: "temporal" },
-  { source: "date", target: "localTime", kind: "temporal" },
-  { source: "localTime", target: "laTime", kind: "temporal" },
-  { source: "day", target: "google", kind: "utility" },
-  { source: "day", target: "github", kind: "utility" },
-  { source: "laTime", target: "youtube", kind: "entertainment" },
-  { source: "laTime", target: "twitter", kind: "social" },
-  { source: "date", target: "netflix", kind: "entertainment" },
-  { source: "date", target: "spotify", kind: "entertainment" }
-  // Removed: { source: "github", target: "youtube", kind: "tutorials" },
-  // Removed: { source: "youtube", target: "spotify", kind: "media" }
+  { source: "date", target: "day", kind: "temporal" },
+  { source: "day", target: "localTime", kind: "temporal" },
+  { source: "day", target: "laTime", kind: "temporal" },
+
+  // All URLs connected ONLY to localTime
+  { source: "localTime", target: "google", kind: "utility" },
+  { source: "localTime", target: "github", kind: "utility" },
+  { source: "localTime", target: "youtube", kind: "entertainment" },
+  { source: "localTime", target: "twitter", kind: "social" },
+  { source: "localTime", target: "netflix", kind: "entertainment" },
+  { source: "localTime", target: "spotify", kind: "entertainment" }
 ];
