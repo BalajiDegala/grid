@@ -1,0 +1,26 @@
+
+/*
+  controls.css: Styling for React Flow UI elements like controls, minimap.
+*/
+
+.react-flow__controls,
+.react-flow__minimap {
+  background: #091621e4;
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--border-radius-slight);
+  box-shadow: 0 0 12px 1px #0ae9ff55;
+  z-index: 30;
+}
+
+.react-flow__minimap .react-flow__minimap-node {
+  fill: #00fff7bb;
+  stroke: var(--color-primary);
+}
+
+.react-flow__attribution {
+  background: #12222e90;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 2px 6px;
+}

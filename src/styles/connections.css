@@ -1,0 +1,35 @@
+
+/*
+  connections.css: Styling for React Flow edges and handles.
+*/
+
+.neon-handle {
+  background: var(--color-primary);
+  border: 3px solid #184656;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 4px #00fff7bb;
+  z-index: 16;
+}
+
+/* Animated Edges */
+.animated-edge .react-flow__edge-path {
+  stroke: var(--color-primary);
+  stroke-width: 2.5px;
+  stroke-dasharray: 10;
+  animation: dashdraw 40s linear infinite;
+  filter: drop-shadow(0 0 5px var(--color-primary-glow));
+}
+
+.react-flow__edge-path {
+  stroke: var(--color-primary);
+  stroke-width: 3.2px;
+  filter: drop-shadow(0 0 6px var(--color-primary-glow)ee);
+  opacity: 0.98;
+}
+
+.react-flow__edge:hover .react-flow__edge-path,
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--color-text-primary);
+}

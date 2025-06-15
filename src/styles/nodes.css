@@ -1,0 +1,105 @@
+
+/*
+  nodes.css: All styling related to TimeNode and WebsiteNode.
+*/
+
+.node-debug-outline {
+  outline: none;
+  box-shadow: none;
+}
+
+.time-node, .website-node {
+  background: #0c131eb9;
+  border-radius: var(--border-radius-sharp);
+  border: 1.5px solid var(--color-primary-glow);
+  box-shadow: var(--shadow-node);
+  min-width: 172px;
+  max-width: 238px;
+  text-align: left;
+  padding: 20px 18px;
+  font-family: var(--font-family-main);
+  position: relative;
+  overflow: visible;
+  color: var(--color-text-accent);
+  z-index: 10;
+  margin: 0;
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.website-node {
+  cursor: pointer;
+  background: #090d16e6;
+}
+
+.website-node:hover, .time-node:hover {
+  transform: scale(1.03) translateY(-4px);
+  box-shadow: var(--shadow-node-hover);
+  border-color: var(--color-text-primary);
+}
+
+/* Node Corner Pieces */
+.node-corner {
+  position: absolute;
+  width: var(--node-corner-size);
+  height: var(--node-corner-size);
+  border-color: var(--color-primary);
+  border-style: solid;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 8px -2px var(--color-primary);
+}
+.top-left { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
+.top-right { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
+.bottom-left { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
+.bottom-right { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
+
+.website-node:hover .node-corner, .time-node:hover .node-corner {
+  transform: scale(1.3);
+  box-shadow: 0 0 12px 0px var(--color-primary);
+}
+
+/* Node Content Styling */
+.node-content {
+  background: transparent;
+  padding: 0;
+  border: none;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18em;
+}
+
+.node-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-accent);
+  margin-bottom: 4px;
+  font-family: inherit;
+  text-shadow: var(--shadow-text);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.node-value, .node-subtitle {
+  font-size: 0.98rem;
+  color: var(--color-text-primary);
+  font-weight: 400;
+  text-shadow: 0 0 7px #19989860;
+}
+
+.node-subtitle {
+  color: var(--color-primary);
+  text-shadow: 0 0 10px var(--color-primary);
+  font-size: 0.88rem;
+}
+
+/* Show node ID for debug */
+.node-debug-outline .node-content:after {
+  content: attr(data-debug-id);
+  position: absolute;
+  right: 6px; top: 2px;
+  font-size: 0.70em;
+  opacity: 0.4;
+  color: var(--color-primary);
+  pointer-events: none;
+  font-family: inherit;
+  z-index: 12;
+}

@@ -1,0 +1,15 @@
+
+/*
+  responsive.css: Media queries for adapting the UI to smaller screens.
+*/
+
+@media (max-width: 900px) {
+  .time-node, .website-node {
+    min-width: 110px;
+    max-width: 140px;
+    font-size: 0.88rem;
+    padding: 10px 8px;
+  }
+  .node-label { font-size: 0.82rem; }
+  .node-value, .node-subtitle { font-size: 0.78rem; }
+}

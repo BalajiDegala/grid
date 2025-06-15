@@ -1,0 +1,58 @@
+
+/*
+  base.css: Core variables, fonts, and global styles for the TRON theme.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap');
+
+/* Core TRON Theme Variables */
+@layer base {
+  :root {
+    /* Color Palette */
+    --color-primary: #32e6e2; /* Bright Cyan */
+    --color-primary-glow: #00fff7;
+    --color-background-dark: #05090c;
+    --color-background-medium: #080b13;
+    --color-background-light: #0c131e;
+    --color-text-primary: #eaffff;
+    --color-text-accent: var(--color-primary);
+
+    /* Typography */
+    --font-family-main: 'Orbitron', monospace, sans-serif;
+    --font-size-base: 16px;
+    --letter-spacing-wide: 0.08em;
+    --letter-spacing-normal: 0.04em;
+
+    /* Sizing & Spacing */
+    --spacing-unit: 8px;
+    --node-corner-size: 10px;
+
+    /* Borders & Shadows */
+    --border-radius-sharp: 0px;
+    --border-radius-slight: 4px;
+    --shadow-node: 0 0 16px 2px #00fff7bb, 0 0 1.5px #32e6e2, 0 0 12px #32e6e2cc;
+    --shadow-node-hover: 0 0 28px 4px #00fff7dd, 0 0 4px #32e6e2, 0 0 18px #32e6e2cc;
+    --shadow-text: 0 0 12px #22e3f8b0, 0 0 2px #00fff755;
+
+    /* Animation */
+    --transition-duration: 0.3s;
+    --transition-timing: ease-in-out;
+  }
+}
+
+/* Global Body Styles */
+body {
+  background: var(--color-background-dark);
+  min-height: 100vh;
+  font-family: var(--font-family-main);
+  color: var(--color-text-accent);
+  letter-spacing: var(--letter-spacing-normal);
+  overscroll-behavior: none;
+  z-index: 0;
+}
+
+/* Global React Flow Styles */
+.neon-flow, .react-flow__background {
+  background: transparent;
+  opacity: 1; /* Opacity is handled by tron-bg now */
+}

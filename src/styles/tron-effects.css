@@ -1,0 +1,55 @@
+
+/*
+  tron-effects.css: Background grid, particles, and core animations.
+*/
+
+/* TRON Grid Lines */
+@keyframes tron-grid-move {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 60px 60px, 60px 60px; }
+}
+
+.tron-bg {
+  background: 
+    repeating-linear-gradient(0deg, #16b1bf22, #16b1bf27 1.1px, transparent 2.1px, transparent 60px),
+    repeating-linear-gradient(90deg, #16b1bf22, #16b1bf27 1.1px, transparent 2.1px, transparent 60px),
+    var(--color-background-medium);
+  animation: tron-grid-move 22s linear infinite;
+  background-size: 60px 60px, 60px 60px;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+  top: 0; left: 0;
+  pointer-events: none;
+}
+
+/* TRON Particles */
+.tron-particles {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 2;
+}
+
+.tron-particle {
+  position: absolute;
+  width: 2.5px;
+  height: 18px;
+  background: var(--color-primary);
+  box-shadow: 0 0 18px 6px #00fff7a0;
+  border-radius: 2px;
+  opacity: .7;
+  filter: blur(1px);
+  animation: tron-particle-move 8s linear infinite;
+}
+
+@keyframes tron-particle-move {
+  to { transform: translateY(175vh) scaleY(1.07); opacity: 0.14; }
+}
+
+/* Edge Animation */
+@keyframes dashdraw {
+  from { stroke-dashoffset: 1000; }
+}
