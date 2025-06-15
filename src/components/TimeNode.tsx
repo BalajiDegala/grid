@@ -54,6 +54,10 @@ export default function TimeNode({ data }: TimeNodeProps) {
 
   return (
     <div className="time-node">
+      <div className="node-corner top-left"></div>
+      <div className="node-corner top-right"></div>
+      <div className="node-corner bottom-left"></div>
+      <div className="node-corner bottom-right"></div>
       <Handle type="target" position={Position.Top} className="neon-handle" />
       <div className="node-content" data-debug-id={data.debugId || undefined}>
         <div className="node-label">{data.label}</div>

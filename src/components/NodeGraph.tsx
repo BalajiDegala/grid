@@ -1,4 +1,3 @@
-
 import React, { useCallback, useMemo, useEffect } from 'react';
 import {
   ReactFlow,
@@ -69,16 +68,15 @@ function buildNodes() {
 }
 
 function buildEdges() {
-  // Only neon cyan
-  return CONNECTIONS.map((c, i) => ({
+  return CONNECTIONS.map((c) => ({
     id: `e-${c.source}-${c.target}`,
     source: c.source,
     target: c.target,
-    type: 'straight',
+    type: 'smoothstep',
+    animated: true,
+    className: 'animated-edge',
     style: {
-      stroke: "#32e6e2",
-      strokeWidth: 3.2,
-      filter: "drop-shadow(0 0 8px #00fff7)"
+      strokeWidth: 2,
     }
   })) as Edge[];
 }
