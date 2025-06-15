@@ -8,8 +8,8 @@ import {
   EdgeProps
 } from '@xyflow/react';
 
+// Type for control points, but no generics needed
 type ControlPoint = { x: number; y: number };
-type EditableEdgeData = { controlPoints?: ControlPoint[] };
 
 export default function EditableEdge({
   id,
@@ -22,7 +22,7 @@ export default function EditableEdge({
   markerEnd,
   data,
   style = {},
-}: EdgeProps<EditableEdgeData>) {
+}: EdgeProps) {
   const { setEdges } = useReactFlow();
 
   const onEdgeClick = useCallback(() => {
@@ -33,9 +33,12 @@ export default function EditableEdge({
   let labelX = (sourceX + targetX) / 2;
   let labelY = (sourceY + targetY) / 2;
 
-  const controlPoints = data?.controlPoints;
+  // Make sure controlPoints is actually an array of points
+  const controlPoints: ControlPoint[] | undefined = Array.isArray((data as any)?.controlPoints)
+    ? (data as any).controlPoints
+    : undefined;
 
-  if (Array.isArray(controlPoints) && controlPoints.length > 0) {
+  if (controlPoints && controlPoints.length > 0) {
     const points = [
       { x: sourceX, y: sourceY },
       ...controlPoints,
@@ -71,7 +74,7 @@ export default function EditableEdge({
           ...style,
         }}
       />
-      {Array.isArray(controlPoints) && controlPoints.map((point, idx) => (
+      {controlPoints?.map((point, idx) => (
         <circle
           key={idx}
           cx={point.x}

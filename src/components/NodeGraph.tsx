@@ -38,6 +38,7 @@ const nodeTypes = {
   websiteNode: WebsiteNode,
 };
 
+// Fix: Keep edgeTypes simple, no generics
 const edgeTypes = {
   editableEdge: EditableEdge,
 };
