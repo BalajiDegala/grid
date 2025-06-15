@@ -1,241 +1,154 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Neon Grid Theme */
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+/* Font (modern, sans-serif) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
 
+/* Base theme variables */
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 180 100% 50%;
-
-    --card: 0 0% 5%;
-    --card-foreground: 180 100% 50%;
-
-    --popover: 0 0% 5%;
-    --popover-foreground: 180 100% 50%;
-
-    --primary: 180 100% 50%;
-    --primary-foreground: 0 0% 0%;
-
-    --secondary: 300 100% 50%;
-    --secondary-foreground: 0 0% 0%;
-
-    --muted: 0 0% 10%;
-    --muted-foreground: 180 50% 30%;
-
-    --accent: 120 100% 50%;
-    --accent-foreground: 0 0% 0%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 180 100% 20%;
-    --input: 180 100% 10%;
-    --ring: 180 100% 50%;
-
-    --radius: 0.5rem;
+    --main-bg: #18222b;
+    --panel-bg: #222e38;
+    --brand-cyan: #32e6e2; /* Node handle + accent */
+    --brand-orange: #fdab3d; /* Main edge */
+    --edge-alt: #fd6161; /* Disabled/error edge */
+    --node-caption: #e6edf3;
+    --node-sub-caption: #b6c3d0;
+    --node-border: #374756;
+    --node-border-active: #32e6e2;
+    --handle-border: #242e39;
+    --backdrop: rgba(50, 61, 74, 0.80);
+    --node-radius: 10px;
   }
 }
 
-/* TRON Theme Variables & Utilities */
-@layer base {
-  :root {
-    --tron-cyan: #00d4ff;
-    --tron-blue-ice: #72f1ff;
-    --tron-deep: #11141b;
-    --tron-glow: 0 0 40px #00d4ff, 0 0 12px #72f1ff;
-    --tron-accent: #ff6600;
-    --tron-scan: rgba(0,212,255,0.05);
-  }
-  .font-tron {
-    font-family: 'Rajdhani', 'Orbitron', monospace, sans-serif !important;
-  }
-  .text-tron-cyan {
-    color: var(--tron-cyan) !important;
-  }
-  .text-tron-blue-ice {
-    color: var(--tron-blue-ice) !important;
-  }
-  .bg-tron-cyan {
-    background: var(--tron-cyan) !important;
-  }
-  .drop-shadow-glow {
-    text-shadow: 0 0 16px var(--tron-cyan), 0 0 4px var(--tron-blue-ice);
-  }
-  .shadow-tron-corner {
-    box-shadow: 0 0 20px 8px var(--tron-cyan);
-  }
-  .rounded-tr-large { border-top-right-radius: 1.5rem; }
-  .rounded-bl-large { border-bottom-left-radius: 1.5rem; }
-  .animate-pulse-tron { animation: pulse-tron-corner 3s linear infinite; }
-}
-
-@keyframes pulse-tron-corner {
-  0%, 100% { opacity: 0.83 }
-  50% { opacity: 1; filter: brightness(1.45); }
-}
-
+/* Body and font */
 body {
-  @apply bg-background text-foreground font-tron;
-  font-family: 'Rajdhani', 'Orbitron', monospace, sans-serif;
-  background: #0a0c16;
+  @apply bg-background text-foreground;
+  font-family: 'IBM Plex Sans', monospace, sans-serif;
+  background: var(--main-bg);
   overflow: hidden;
   min-height: 100vh;
-  letter-spacing: 0.06em;
 }
 
-/* Neon Dot-Grid with TRON scanlines */
+/* Grid background */
 .neon-flow, .react-flow__background {
   background:
     repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 37px,
-      var(--tron-scan) 38px,
+      transparent 38px,
+      rgba(255,255,255,0.04) 39px,
       transparent 40px
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
-      transparent 37px,
-      var(--tron-scan) 38px,
+      transparent 38px,
+      rgba(255,255,255,0.04) 39px,
       transparent 40px
     ),
-    linear-gradient(120deg, #002033cc 0%, #00101bcc 100%);
+    linear-gradient(120deg, #212632 0%, #18222b 100%);
 }
 
-/* Tronized Node Styling */
+/* Node Styles */
 .time-node, .website-node {
-  background: rgba(10,20,34,0.95);
-  border: 2.5px solid var(--tron-cyan);
-  border-radius: 0.75rem;
-  padding: 16px 8px;
+  background: var(--panel-bg);
+  border: 2px solid var(--node-border);
+  border-radius: var(--node-radius);
+  box-shadow: none;
   min-width: 160px;
-  max-width: 200px;
-  text-align: center;
-  box-shadow: 0 0 32px 0 var(--tron-cyan), 0 0 2px var(--tron-blue-ice) inset;
+  max-width: 220px;
+  text-align: left;
+  padding: 18px 15px;
   position: relative;
   overflow: hidden;
+  transition: border 0.13s;
 }
-.time-node::before, .website-node::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ffff00);
-  border-radius: 12px;
-  z-index: -1;
-  animation: borderRotate 3s linear infinite;
-}
-@keyframes borderRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.time-node:hover, .website-node:hover {
-  transform: scale(1.05);
-  box-shadow: 
-    0 0 30px rgba(0, 255, 255, 0.6),
-    inset 0 0 30px rgba(0, 255, 255, 0.2);
-  border-color: var(--tron-accent);
-  box-shadow: 0 0 44px 0 var(--tron-accent), 0 0 12px var(--tron-cyan) inset;
+.time-node:focus, .website-node:focus, .time-node:active, .website-node:active {
+  outline: none;
+  border: 2px solid var(--node-border-active);
 }
 
 .website-node {
   cursor: pointer;
-  border-color: var(--tron-accent);
-}
-.website-node::before {
-  background: linear-gradient(75deg, var(--tron-accent), var(--tron-cyan) 80%);
+  border-color: var(--brand-orange);
 }
 
-/* Digital, angular node contents */
+/* Node Content */
 .node-content {
-  background: rgba(10,20,34,0.90);
-  border-radius: 0.5rem;
-  padding: 10px 7px;
-  letter-spacing: 0.07em;
-  border: 1px solid var(--tron-cyan);
+  background: transparent;
+  border-radius: 6px;
+  padding: 0;
+  letter-spacing: 0;
+  border: none;
 }
 .node-label {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--tron-cyan);
-  text-transform: uppercase;
-  margin-bottom: 7px;
-  text-shadow: 0 0 10px var(--tron-blue-ice), 0 0 2px var(--tron-cyan);
-  font-family: 'Rajdhani', 'Orbitron', monospace, sans-serif;
+  color: var(--brand-cyan);
+  text-transform: none;
+  margin-bottom: 6px;
+  font-family: inherit;
+  text-shadow: none;
 }
 .node-value, .node-subtitle {
-  font-size: .93rem;
-  color: #fff;
+  font-size: 0.96rem;
+  color: var(--node-caption);
   font-weight: 500;
-  text-shadow: 0 0 8px var(--tron-blue-ice);
+  text-shadow: none;
 }
 .node-subtitle {
-  color: var(--tron-accent);
-  font-size: 0.88rem;
+  color: var(--brand-orange);
+  font-size: 0.92rem;
 }
 
 /* Tron handles ("connectors") */
 .neon-handle {
-  background: var(--tron-cyan) !important;
-  border: 2px solid var(--tron-accent) !important;
-  width: 14px !important;
-  height: 14px !important;
-  box-shadow: 0 0 10px var(--tron-cyan), 0 0 18px var(--tron-accent);
-  transition: all 0.27s cubic-bezier(.6,.3,.6,.7) !important;
+  background: var(--brand-cyan) !important;
+  border: 3px solid var(--handle-border) !important;
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 7px;
+  box-shadow: none !important;
+  transition: all 0.12s;
 }
 .neon-handle:hover {
-  background: var(--tron-accent) !important;
-  box-shadow: 0 0 24px var(--tron-accent);
-  transform: scale(1.35) !important;
+  background: var(--brand-orange) !important;
+  border-color: var(--brand-orange) !important;
+  box-shadow: 0 0 6px var(--brand-orange);
+  transform: scale(1.14) !important;
 }
 
-/* Tron-style edges */
+/* Edge Styles */
 .react-flow__edge-path {
-  filter: drop-shadow(0 0 8px var(--tron-cyan));
-  stroke: var(--tron-cyan) !important;
+  filter: none;
+  stroke: var(--brand-orange) !important;
   stroke-width: 2.5 !important;
-  stroke-dasharray: 6,4;
-  animation: edgePulseTron 1.2s linear infinite alternate;
-}
-@keyframes edgePulseTron {
-  0% { opacity: 0.7; }
-  100% { opacity: 1; }
+  stroke-dasharray: 5, 5;
+  animation: none;
+  opacity: 0.98;
 }
 
-/* Tron minimap/controls styling */
+/* Controls & Minimap */
 .react-flow__minimap,
 .react-flow__controls {
-  background: rgba(10,20,24,0.97) !important;
-  border: 2px solid var(--tron-cyan) !important;
+  background: var(--panel-bg) !important;
+  border: 2px solid var(--brand-cyan) !important;
   border-radius: 8px !important;
-  box-shadow: 0 0 24px var(--tron-cyan) !important;
+  box-shadow: none !important;
 }
 
-/* Tron attribution */
 .react-flow__attribution {
-  background: rgba(15,20,34, 0.75) !important;
-  color: var(--tron-cyan) !important;
-  border: 1.5px solid var(--tron-cyan) !important;
+  background: rgba(15,20,34, 0.55) !important;
+  color: var(--brand-cyan) !important;
+  border: 1.5px solid var(--brand-cyan) !important;
   border-radius: 5px !important;
 }
 
-/* Selection Box */
 .react-flow__nodesselection-rect {
-  background: rgba(0, 255, 255, 0.1) !important;
-  border: 1px solid #00ffff !important;
-}
-
-/* Attribution */
-.react-flow__attribution {
-  background: rgba(0, 0, 0, 0.8) !important;
-  color: #00ffff !important;
-  border: 1px solid #00ffff !important;
-  border-radius: 4px !important;
+  background: rgba(50,255,255,0.04) !important;
+  border: 1.5px solid var(--brand-cyan) !important;
 }
