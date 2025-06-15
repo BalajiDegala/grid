@@ -1,3 +1,4 @@
+
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import {
   ReactFlow,
@@ -20,22 +21,22 @@ import CustomConnectionLine from './CustomConnectionLine';
 import { useSpaceKey } from '../hooks/useSpaceKey';
 import { THEME, WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
-// Revised grid layout positions:
+// More spacious grid layout positions with increased spacing
 const nodePositions = {
   // 1st row, date node only
-  date:       { x: 400, y: 40 },
-  // 2nd row, day node
-  day:        { x: 400, y: 140 },
-  // 3rd row, two time nodes
-  localTime:  { x: 220, y: 260 },
-  laTime:     { x: 580, y: 260 },
-  // 4th row, spread out website nodes horizontally
-  google:     { x: 40,  y: 410 },
-  github:     { x: 180, y: 410 },
-  youtube:    { x: 340, y: 410 },
-  twitter:    { x: 500, y: 410 },
-  netflix:    { x: 660, y: 410 },
-  spotify:    { x: 820, y: 410 },
+  date:       { x: 400, y: 50 },
+  // 2nd row, day node with more vertical spacing
+  day:        { x: 400, y: 180 },
+  // 3rd row, two time nodes with more spacing
+  localTime:  { x: 200, y: 340 },
+  laTime:     { x: 600, y: 340 },
+  // 4th row, spread out website nodes horizontally with more spacing
+  google:     { x: 40,  y: 520 },
+  github:     { x: 200, y: 520 },
+  youtube:    { x: 360, y: 520 },
+  twitter:    { x: 520, y: 520 },
+  netflix:    { x: 680, y: 520 },
+  spotify:    { x: 840, y: 520 },
 };
 
 const nodeTypes = {
@@ -43,7 +44,6 @@ const nodeTypes = {
   websiteNode: WebsiteNode,
 };
 
-// Fix: Keep edgeTypes simple, no generics
 const edgeTypes = {
   editableEdge: EditableEdge,
 };
@@ -69,14 +69,7 @@ function buildNodes() {
       }
     });
   });
-  // Add debug outline
-  return nodes.map(node => ({
-    ...node,
-    className: (node.type === 'websiteNode' || node.type === 'timeNode')
-      ? 'node-debug-outline'
-      : '',
-    data: { ...node.data, debugId: node.id }
-  }));
+  return nodes;
 }
 
 function buildEdges() {
@@ -87,12 +80,11 @@ function buildEdges() {
     type: 'editableEdge',
     animated: false,
     style: {
-      strokeWidth: 2,
-      stroke: '#306ACD',
+      strokeWidth: 1.5,
+      stroke: '#CBD5E1',
     },
     data: {
       kind: c.kind,
-      controlPoints: [],
     },
   }));
 }
@@ -117,17 +109,16 @@ export default function NodeGraph() {
         type: 'editableEdge',
         animated: false,
         style: {
-          strokeWidth: 2,
-          stroke: '#306ACD',
+          strokeWidth: 1.5,
+          stroke: '#CBD5E1',
         },
         data: {
           kind: 'custom',
-          controlPoints: isDrawingMode ? [] : undefined,
         },
       };
       setEdges((eds) => addEdge(newEdge, eds));
     },
-    [setEdges, isDrawingMode]
+    [setEdges]
   );
 
   return (
@@ -144,11 +135,11 @@ export default function NodeGraph() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
-        edgeTypes={{ editableEdge: EditableEdge }}
+        edgeTypes={edgeTypes}
         connectionLineComponent={CustomConnectionLine}
         fitView
-        minZoom={0.4}
-        maxZoom={1.2}
+        minZoom={0.3}
+        maxZoom={1.0}
         className="clean-flow"
         attributionPosition="top-right"
       >
@@ -160,9 +151,9 @@ export default function NodeGraph() {
         />
         <Background
           variant={BackgroundVariant.Dots}
-          gap={60}
-          size={2}
-          color="#E2E8F0"
+          gap={80}
+          size={1.5}
+          color="#F1F5F9"
           className="clean-background"
         />
       </ReactFlow>
