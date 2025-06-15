@@ -8,13 +8,8 @@ import {
   EdgeProps
 } from '@xyflow/react';
 
-/**
- * Only supporting controlPoints for clean implementation;
- * If needed, extend here, but keep the interface simple.
- */
-interface EditableEdgeData {
-  controlPoints?: { x: number; y: number }[];
-}
+type ControlPoint = { x: number; y: number };
+type EditableEdgeData = { controlPoints?: ControlPoint[] };
 
 export default function EditableEdge({
   id,
@@ -34,13 +29,13 @@ export default function EditableEdge({
     setEdges((edges) => edges.filter((edge) => edge.id !== id));
   }, [id, setEdges]);
 
-  let edgePath: string;
-  let labelX: number;
-  let labelY: number;
+  let edgePath: string = '';
+  let labelX = (sourceX + targetX) / 2;
+  let labelY = (sourceY + targetY) / 2;
 
-  const controlPoints = (data && 'controlPoints' in data) ? data.controlPoints : undefined;
+  const controlPoints = data?.controlPoints;
 
-  if (controlPoints && controlPoints.length > 0) {
+  if (Array.isArray(controlPoints) && controlPoints.length > 0) {
     const points = [
       { x: sourceX, y: sourceY },
       ...controlPoints,
@@ -50,7 +45,7 @@ export default function EditableEdge({
     for (let i = 1; i < points.length; i++) {
       edgePath += ` L ${points[i].x} ${points[i].y}`;
     }
-    // Optionally: label in the center control point
+    // Place label at the center control point if possible
     const midIndex = Math.floor(points.length / 2);
     labelX = points[midIndex].x;
     labelY = points[midIndex].y;
@@ -72,18 +67,18 @@ export default function EditableEdge({
         markerEnd={markerEnd}
         style={{
           strokeWidth: 2,
-          stroke: '#306ACD',
+          stroke: '#4E6CF3',
           ...style,
         }}
       />
-      {!!controlPoints && controlPoints.map((point, idx) => (
+      {Array.isArray(controlPoints) && controlPoints.map((point, idx) => (
         <circle
           key={idx}
           cx={point.x}
           cy={point.y}
           r={7}
           fill="#fff"
-          stroke="#306ACD"
+          stroke="#4E6CF3"
           strokeWidth={2}
           className="editable-edge-control-point"
           style={{
@@ -105,15 +100,15 @@ export default function EditableEdge({
             onClick={onEdgeClick}
             style={{
               background: '#fff',
-              border: '1.5px solid #CBD5E1',
+              border: '1.2px solid #dee3f1',
               borderRadius: '50%',
               width: '24px',
               height: '24px',
               cursor: 'pointer',
-              color: '#306ACD',
+              color: '#4565d6',
               fontSize: '18px',
-              fontWeight: 'bold',
-              boxShadow: '0 1px 3px #0001',
+              fontWeight: 600,
+              boxShadow: '0 1px 2px #0001',
             }}
             title="Delete edge"
           >
