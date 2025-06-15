@@ -1,9 +1,9 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Neon Grid Theme */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
 @layer base {
@@ -40,71 +40,86 @@
   }
 }
 
+/* TRON Theme Variables & Utilities */
 @layer base {
-  * {
-    @apply border-border;
+  :root {
+    --tron-cyan: #00d4ff;
+    --tron-blue-ice: #72f1ff;
+    --tron-deep: #11141b;
+    --tron-glow: 0 0 40px #00d4ff, 0 0 12px #72f1ff;
+    --tron-accent: #ff6600;
+    --tron-scan: rgba(0,212,255,0.05);
   }
-
-  body {
-    @apply bg-background text-foreground font-mono;
-    font-family: 'Orbitron', monospace;
-    background: #000;
-    overflow: hidden;
+  .font-tron {
+    font-family: 'Rajdhani', 'Orbitron', monospace, sans-serif !important;
   }
+  .text-tron-cyan {
+    color: var(--tron-cyan) !important;
+  }
+  .text-tron-blue-ice {
+    color: var(--tron-blue-ice) !important;
+  }
+  .bg-tron-cyan {
+    background: var(--tron-cyan) !important;
+  }
+  .drop-shadow-glow {
+    text-shadow: 0 0 16px var(--tron-cyan), 0 0 4px var(--tron-blue-ice);
+  }
+  .shadow-tron-corner {
+    box-shadow: 0 0 20px 8px var(--tron-cyan);
+  }
+  .rounded-tr-large { border-top-right-radius: 1.5rem; }
+  .rounded-bl-large { border-bottom-left-radius: 1.5rem; }
+  .animate-pulse-tron { animation: pulse-tron-corner 3s linear infinite; }
 }
 
-/* Neon Flow Styling */
-.neon-flow {
-  background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, rgba(0, 0, 0, 1) 100%);
+@keyframes pulse-tron-corner {
+  0%, 100% { opacity: 0.83 }
+  50% { opacity: 1; filter: brightness(1.45); }
 }
 
-.react-flow__background {
-  background-color: #000 !important;
+body {
+  @apply bg-background text-foreground font-tron;
+  font-family: 'Rajdhani', 'Orbitron', monospace, sans-serif;
+  background: #0a0c16;
+  overflow: hidden;
+  min-height: 100vh;
+  letter-spacing: 0.06em;
 }
 
-.react-flow__controls {
-  background: rgba(0, 0, 0, 0.8) !important;
-  border: 1px solid #00ffff !important;
-  border-radius: 8px !important;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3) !important;
+/* Neon Dot-Grid with TRON scanlines */
+.neon-flow, .react-flow__background {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 37px,
+      var(--tron-scan) 38px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 37px,
+      var(--tron-scan) 38px,
+      transparent 40px
+    ),
+    linear-gradient(120deg, #002033cc 0%, #00101bcc 100%);
 }
 
-.react-flow__controls button {
-  background: rgba(0, 0, 0, 0.9) !important;
-  border: 1px solid #00ffff !important;
-  color: #00ffff !important;
-  transition: all 0.3s ease !important;
-}
-
-.react-flow__controls button:hover {
-  background: rgba(0, 255, 255, 0.1) !important;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
-  transform: scale(1.05) !important;
-}
-
-.react-flow__minimap {
-  background: rgba(0, 0, 0, 0.9) !important;
-  border: 1px solid #00ffff !important;
-  border-radius: 8px !important;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3) !important;
-}
-
-/* Node Styling */
+/* Tronized Node Styling */
 .time-node, .website-node {
-  background: rgba(0, 0, 0, 0.9);
-  border: 2px solid #00ffff;
-  border-radius: 12px;
-  padding: 16px;
-  min-width: 150px;
+  background: rgba(10,20,34,0.95);
+  border: 2.5px solid var(--tron-cyan);
+  border-radius: 0.75rem;
+  padding: 16px 8px;
+  min-width: 160px;
+  max-width: 200px;
   text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 
-    0 0 20px rgba(0, 255, 255, 0.3),
-    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 32px 0 var(--tron-cyan), 0 0 2px var(--tron-blue-ice) inset;
   position: relative;
   overflow: hidden;
 }
-
 .time-node::before, .website-node::before {
   content: '';
   position: absolute;
@@ -117,94 +132,98 @@
   z-index: -1;
   animation: borderRotate 3s linear infinite;
 }
-
 @keyframes borderRotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 .time-node:hover, .website-node:hover {
   transform: scale(1.05);
   box-shadow: 
     0 0 30px rgba(0, 255, 255, 0.6),
     inset 0 0 30px rgba(0, 255, 255, 0.2);
-  border-color: #ff00ff;
+  border-color: var(--tron-accent);
+  box-shadow: 0 0 44px 0 var(--tron-accent), 0 0 12px var(--tron-cyan) inset;
 }
 
 .website-node {
   cursor: pointer;
-  border-color: #ff00ff;
+  border-color: var(--tron-accent);
 }
-
 .website-node::before {
-  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+  background: linear-gradient(75deg, var(--tron-accent), var(--tron-cyan) 80%);
 }
 
-.website-node:hover {
-  border-color: #00ff00;
-  box-shadow: 
-    0 0 30px rgba(255, 0, 255, 0.6),
-    inset 0 0 30px rgba(255, 0, 255, 0.2);
-}
-
+/* Digital, angular node contents */
 .node-content {
-  position: relative;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 8px;
-  padding: 8px;
+  background: rgba(10,20,34,0.90);
+  border-radius: 0.5rem;
+  padding: 10px 7px;
+  letter-spacing: 0.07em;
+  border: 1px solid var(--tron-cyan);
 }
-
 .node-label {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 700;
-  color: #00ffff;
+  color: var(--tron-cyan);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  margin-bottom: 7px;
+  text-shadow: 0 0 10px var(--tron-blue-ice), 0 0 2px var(--tron-cyan);
+  font-family: 'Rajdhani', 'Orbitron', monospace, sans-serif;
 }
-
-.node-value {
-  font-size: 12px;
-  color: #ffffff;
-  font-weight: 400;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+.node-value, .node-subtitle {
+  font-size: .93rem;
+  color: #fff;
+  font-weight: 500;
+  text-shadow: 0 0 8px var(--tron-blue-ice);
 }
-
 .node-subtitle {
-  font-size: 10px;
-  color: #ff00ff;
-  font-weight: 400;
-  text-transform: uppercase;
-  text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+  color: var(--tron-accent);
+  font-size: 0.88rem;
 }
 
-/* Handle Styling */
+/* Tron handles ("connectors") */
 .neon-handle {
-  background: #00ffff !important;
-  border: 2px solid #ffffff !important;
-  width: 12px !important;
-  height: 12px !important;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8) !important;
-  transition: all 0.3s ease !important;
+  background: var(--tron-cyan) !important;
+  border: 2px solid var(--tron-accent) !important;
+  width: 14px !important;
+  height: 14px !important;
+  box-shadow: 0 0 10px var(--tron-cyan), 0 0 18px var(--tron-accent);
+  transition: all 0.27s cubic-bezier(.6,.3,.6,.7) !important;
 }
-
 .neon-handle:hover {
-  background: #ff00ff !important;
-  box-shadow: 0 0 15px rgba(255, 0, 255, 1) !important;
-  transform: scale(1.3) !important;
+  background: var(--tron-accent) !important;
+  box-shadow: 0 0 24px var(--tron-accent);
+  transform: scale(1.35) !important;
 }
 
-/* Edge Styling */
+/* Tron-style edges */
 .react-flow__edge-path {
-  filter: drop-shadow(0 0 5px currentColor);
-  animation: edgePulse 2s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px var(--tron-cyan));
+  stroke: var(--tron-cyan) !important;
+  stroke-width: 2.5 !important;
+  stroke-dasharray: 6,4;
+  animation: edgePulseTron 1.2s linear infinite alternate;
+}
+@keyframes edgePulseTron {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
 }
 
-@keyframes edgePulse {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; }
+/* Tron minimap/controls styling */
+.react-flow__minimap,
+.react-flow__controls {
+  background: rgba(10,20,24,0.97) !important;
+  border: 2px solid var(--tron-cyan) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 24px var(--tron-cyan) !important;
+}
+
+/* Tron attribution */
+.react-flow__attribution {
+  background: rgba(15,20,34, 0.75) !important;
+  color: var(--tron-cyan) !important;
+  border: 1.5px solid var(--tron-cyan) !important;
+  border-radius: 5px !important;
 }
 
 /* Selection Box */
