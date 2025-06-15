@@ -47,3 +47,38 @@
   font-family: var(--font-family-main) !important;
   text-shadow: 0 0 4px #32e6e2 !important;
 }
+
+/* Editable Edge Styles */
+.editable-edge-control-point {
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.editable-edge-control-point:hover {
+  r: 8;
+  filter: drop-shadow(0 0 8px #32e6e2) !important;
+}
+
+.editable-edge-control-point:active {
+  cursor: grabbing;
+}
+
+.editable-edge-label {
+  pointer-events: all;
+}
+
+.editable-edge-button {
+  transition: all 0.2s ease;
+}
+
+.editable-edge-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #32e6e2 !important;
+}
+
+/* Connection Line Animation */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -15;
+  }
+}
