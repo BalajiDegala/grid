@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import {
   BaseEdge,
   EdgeLabelRenderer,
-  getBezierPath,
   useReactFlow,
   EdgeProps
 } from '@xyflow/react';
@@ -39,6 +38,7 @@ export default function EditableEdge({
     : undefined;
 
   if (controlPoints && controlPoints.length > 0) {
+    // Freeform: draw polyline through control points
     const points = [
       { x: sourceX, y: sourceY },
       ...controlPoints,
@@ -53,14 +53,10 @@ export default function EditableEdge({
     labelX = points[midIndex].x;
     labelY = points[midIndex].y;
   } else {
-    [edgePath, labelX, labelY] = getBezierPath({
-      sourceX,
-      sourceY,
-      sourcePosition,
-      targetX,
-      targetY,
-      targetPosition,
-    });
+    // STRAIGHT LINE: draw simple line (no bezier curve)
+    edgePath = `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
+    labelX = (sourceX + targetX) / 2;
+    labelY = (sourceY + targetY) / 2;
   }
 
   return (
@@ -122,3 +118,4 @@ export default function EditableEdge({
     </>
   );
 }
+
