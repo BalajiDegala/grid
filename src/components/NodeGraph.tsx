@@ -1,5 +1,5 @@
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   ReactFlow,
   Background,
@@ -12,95 +12,82 @@ import {
   Edge,
   Node,
   BackgroundVariant,
+  Position,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import TimeNode from './TimeNode';
 import WebsiteNode from './WebsiteNode';
+
+import { THEME, WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
+
+// Helper: define position layouts (can be extended for config)
+const nodePositions = {
+  day:        { x: 350, y: 110 },
+  date:       { x: 570, y: 110 },
+  localTime:  { x: 350, y: 260 },
+  laTime:     { x: 570, y: 260 },
+  google:     { x: 80,  y: 420 },
+  github:     { x: 220, y: 420 },
+  youtube:    { x: 500, y: 420 },
+  twitter:    { x: 720, y: 420 },
+  netflix:    { x: 340, y: 580 },
+  spotify:    { x: 580, y: 580 },
+};
 
 const nodeTypes = {
   timeNode: TimeNode,
   websiteNode: WebsiteNode,
 };
 
-const initialNodes: Node[] = [
-  {
-    id: '1',
+function buildNodes() {
+  // Time nodes
+  const nodes: Node[] = TIME_NODES.map(n => ({
+    id: n.id,
     type: 'timeNode',
-    position: { x: 250, y: 100 },
-    data: { label: 'Current Day', type: 'day' },
-  },
-  {
-    id: '2',
-    type: 'timeNode',
-    position: { x: 450, y: 100 },
-    data: { label: 'Current Date', type: 'date' },
-  },
-  {
-    id: '3',
-    type: 'timeNode',
-    position: { x: 250, y: 250 },
-    data: { label: 'Local Time', type: 'time' },
-  },
-  {
-    id: '4',
-    type: 'timeNode',
-    position: { x: 450, y: 250 },
-    data: { label: 'LA Time', type: 'laTime' },
-  },
-  {
-    id: '5',
-    type: 'websiteNode',
-    position: { x: 100, y: 400 },
-    data: { label: 'Google', url: 'https://google.com' },
-  },
-  {
-    id: '6',
-    type: 'websiteNode',
-    position: { x: 300, y: 400 },
-    data: { label: 'GitHub', url: 'https://github.com' },
-  },
-  {
-    id: '7',
-    type: 'websiteNode',
-    position: { x: 500, y: 400 },
-    data: { label: 'YouTube', url: 'https://youtube.com' },
-  },
-  {
-    id: '8',
-    type: 'websiteNode',
-    position: { x: 700, y: 400 },
-    data: { label: 'Twitter', url: 'https://twitter.com' },
-  },
-  {
-    id: '9',
-    type: 'websiteNode',
-    position: { x: 200, y: 550 },
-    data: { label: 'Netflix', url: 'https://netflix.com' },
-  },
-  {
-    id: '10',
-    type: 'websiteNode',
-    position: { x: 500, y: 550 },
-    data: { label: 'Spotify', url: 'https://spotify.com' },
-  },
-];
+    position: nodePositions[n.id] || { x: 0, y: 0 },
+    data: { label: n.label, type: n.type }
+  }));
+  // Website nodes
+  WEBSITE_NODES.forEach(w => {
+    nodes.push({
+      id: w.id,
+      type: 'websiteNode',
+      position: nodePositions[w.id] || { x: 0, y: 0 },
+      data: { label: w.label, url: w.url }
+    });
+  });
+  return nodes;
+}
 
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', type: 'straight', style: { stroke: '#00ffff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e1-3', source: '1', target: '3', type: 'straight', style: { stroke: '#00ffff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e2-4', source: '2', target: '4', type: 'straight', style: { stroke: '#00ffff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e3-4', source: '3', target: '4', type: 'straight', style: { stroke: '#00ffff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e1-5', source: '1', target: '5', type: 'straight', style: { stroke: '#ff00ff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e2-6', source: '2', target: '6', type: 'straight', style: { stroke: '#ff00ff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e3-7', source: '3', target: '7', type: 'straight', style: { stroke: '#ff00ff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e4-8', source: '4', target: '8', type: 'straight', style: { stroke: '#ff00ff', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e5-9', source: '5', target: '9', type: 'straight', style: { stroke: '#00ff00', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e6-10', source: '6', target: '10', type: 'straight', style: { stroke: '#00ff00', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e7-9', source: '7', target: '9', type: 'straight', style: { stroke: '#00ff00', strokeWidth: 2, strokeDasharray: '5,5' } },
-  { id: 'e8-10', source: '8', target: '10', type: 'straight', style: { stroke: '#00ff00', strokeWidth: 2, strokeDasharray: '5,5' } },
-];
+function buildEdges() {
+  // Connection color based on "kind"
+  function color(kind: string) {
+    if (kind === "temporal") return "#32e6e2";
+    if (kind === "utility") return "#fdab3d";
+    if (kind === "entertainment") return "#f955a4";
+    if (kind === "social") return "#2fc3f2";
+    if (kind === "media") return "#badc58";
+    if (kind === "tutorials") return "#c77dff";
+    return "#fdab3d";
+  }
+  return CONNECTIONS.map((c, i) => ({
+    id: `e-${c.source}-${c.target}`,
+    source: c.source,
+    target: c.target,
+    type: 'straight',
+    style: {
+      stroke: color(c.kind),
+      strokeWidth: 2.5,
+      strokeDasharray: '5,5',
+      opacity: 0.95
+    }
+  })) as Edge[];
+}
 
 export default function NodeGraph() {
+  const initialNodes = useMemo(buildNodes, []);
+  const initialEdges = useMemo(buildEdges, []);
+
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
@@ -109,8 +96,9 @@ export default function NodeGraph() {
     [setEdges]
   );
 
+  // Use theme background
   return (
-    <div className="w-full h-screen bg-black">
+    <div className="w-full h-screen" style={{ background: THEME.background }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -120,12 +108,15 @@ export default function NodeGraph() {
         nodeTypes={nodeTypes}
         fitView
         className="neon-flow"
+        minZoom={0.3}
+        maxZoom={1.6}
+        zoomOnDoubleClick={true}
       >
         <Background 
-          variant={BackgroundVariant.Dots} 
-          gap={20} 
-          size={1}
-          color="#00ffff"
+          variant={BackgroundVariant.Dots}
+          gap={22}
+          size={1.5}
+          color="#2a4155"
         />
         <Controls 
           className="neon-controls"
@@ -135,8 +126,12 @@ export default function NodeGraph() {
         />
         <MiniMap 
           className="neon-minimap"
-          nodeColor="#00ffff"
-          maskColor="rgba(0, 0, 0, 0.8)"
+          nodeColor={(n) =>
+            n.type === "timeNode"
+              ? THEME.node.accent
+              : THEME.node.edge
+          }
+          maskColor="rgba(0, 0, 0, 0.88)"
         />
       </ReactFlow>
     </div>
