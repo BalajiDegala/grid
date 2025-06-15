@@ -1,94 +1,42 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Neon Grid Theme */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 0%;
+    --foreground: 180 100% 50%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 5%;
+    --card-foreground: 180 100% 50%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 180 100% 50%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 300 100% 50%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 180 50% 30%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 120 100% 50%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 180 100% 20%;
+    --input: 180 100% 10%;
+    --ring: 180 100% 50%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -98,6 +46,177 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
+    font-family: 'Orbitron', monospace;
+    background: #000;
+    overflow: hidden;
   }
+}
+
+/* Neon Flow Styling */
+.neon-flow {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.react-flow__background {
+  background-color: #000 !important;
+}
+
+.react-flow__controls {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid #00ffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3) !important;
+}
+
+.react-flow__controls button {
+  background: rgba(0, 0, 0, 0.9) !important;
+  border: 1px solid #00ffff !important;
+  color: #00ffff !important;
+  transition: all 0.3s ease !important;
+}
+
+.react-flow__controls button:hover {
+  background: rgba(0, 255, 255, 0.1) !important;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+  transform: scale(1.05) !important;
+}
+
+.react-flow__minimap {
+  background: rgba(0, 0, 0, 0.9) !important;
+  border: 1px solid #00ffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3) !important;
+}
+
+/* Node Styling */
+.time-node, .website-node {
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #00ffff;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 150px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.3),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.time-node::before, .website-node::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00, #ffff00);
+  border-radius: 12px;
+  z-index: -1;
+  animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.time-node:hover, .website-node:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.6),
+    inset 0 0 30px rgba(0, 255, 255, 0.2);
+  border-color: #ff00ff;
+}
+
+.website-node {
+  cursor: pointer;
+  border-color: #ff00ff;
+}
+
+.website-node::before {
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+}
+
+.website-node:hover {
+  border-color: #00ff00;
+  box-shadow: 
+    0 0 30px rgba(255, 0, 255, 0.6),
+    inset 0 0 30px rgba(255, 0, 255, 0.2);
+}
+
+.node-content {
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.node-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #00ffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+.node-value {
+  font-size: 12px;
+  color: #ffffff;
+  font-weight: 400;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.node-subtitle {
+  font-size: 10px;
+  color: #ff00ff;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+/* Handle Styling */
+.neon-handle {
+  background: #00ffff !important;
+  border: 2px solid #ffffff !important;
+  width: 12px !important;
+  height: 12px !important;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8) !important;
+  transition: all 0.3s ease !important;
+}
+
+.neon-handle:hover {
+  background: #ff00ff !important;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 1) !important;
+  transform: scale(1.3) !important;
+}
+
+/* Edge Styling */
+.react-flow__edge-path {
+  filter: drop-shadow(0 0 5px currentColor);
+  animation: edgePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes edgePulse {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Selection Box */
+.react-flow__nodesselection-rect {
+  background: rgba(0, 255, 255, 0.1) !important;
+  border: 1px solid #00ffff !important;
+}
+
+/* Attribution */
+.react-flow__attribution {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: #00ffff !important;
+  border: 1px solid #00ffff !important;
+  border-radius: 4px !important;
 }
