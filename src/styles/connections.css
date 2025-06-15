@@ -13,23 +13,37 @@
   z-index: 16;
 }
 
-/* Animated Edges */
+/* Enhanced Animated Edges */
 .animated-edge .react-flow__edge-path {
-  stroke: var(--color-primary);
-  stroke-width: 2.5px;
+  stroke: var(--color-primary) !important;
+  stroke-width: 3px !important;
   stroke-dasharray: 10;
-  animation: dashdraw 40s linear infinite;
-  filter: drop-shadow(0 0 5px var(--color-primary-glow));
+  animation: dashdraw 40s linear infinite, neon-pulse 3s ease-in-out infinite !important;
+  filter: drop-shadow(0 0 8px var(--color-primary-glow)) !important;
 }
 
 .react-flow__edge-path {
-  stroke: var(--color-primary);
-  stroke-width: 3.2px;
-  filter: drop-shadow(0 0 6px var(--color-primary-glow)ee);
-  opacity: 0.98;
+  stroke: var(--color-primary) !important;
+  stroke-width: 3.2px !important;
+  filter: drop-shadow(0 0 6px var(--color-primary-glow)) drop-shadow(0 0 12px #32e6e2) !important;
+  opacity: 0.98 !important;
 }
 
 .react-flow__edge:hover .react-flow__edge-path,
 .react-flow__edge.selected .react-flow__edge-path {
-  stroke: var(--color-text-primary);
+  stroke: var(--color-text-primary) !important;
+  filter: drop-shadow(0 0 12px #ffffff) !important;
+}
+
+/* Enhanced Edge Labels */
+.react-flow__edge-textbg {
+  fill: var(--color-background-dark) !important;
+  stroke: var(--color-primary) !important;
+  stroke-width: 1px !important;
+}
+
+.react-flow__edge-text {
+  fill: var(--color-primary) !important;
+  font-family: var(--font-family-main) !important;
+  text-shadow: 0 0 4px #32e6e2 !important;
 }

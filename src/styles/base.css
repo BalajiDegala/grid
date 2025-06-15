@@ -1,3 +1,4 @@
+
 /*
   base.css: Core variables, fonts, and global styles for the TRON theme.
 */
@@ -41,7 +42,7 @@
 
 /* Global Body Styles */
 body {
-  background: var(--color-background-dark);
+  background: var(--color-background-dark) !important;
   min-height: 100vh;
   font-family: var(--font-family-main);
   color: var(--color-text-accent);
@@ -50,8 +51,18 @@ body {
   z-index: 0;
 }
 
-/* Global React Flow Styles */
-.neon-flow, .react-flow__background {
-  background: transparent;
-  opacity: 1; /* Opacity is handled by tron-bg now */
+/* Global React Flow Styles Override */
+.neon-flow, 
+.react-flow__background,
+.react-flow__renderer {
+  background: var(--color-background-dark) !important;
+}
+
+.react-flow__viewport {
+  background: transparent !important;
+}
+
+/* Ensure React Flow uses our theme */
+.react-flow {
+  background: var(--color-background-dark) !important;
 }

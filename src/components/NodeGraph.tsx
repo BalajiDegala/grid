@@ -1,3 +1,4 @@
+
 import React, { useCallback, useMemo, useEffect } from 'react';
 import {
   ReactFlow,
@@ -76,7 +77,8 @@ function buildEdges() {
     animated: true,
     className: 'animated-edge',
     style: {
-      strokeWidth: 2,
+      strokeWidth: 3,
+      stroke: '#32e6e2',
     }
   })) as Edge[];
 }
@@ -91,38 +93,6 @@ export default function NodeGraph() {
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
-
-  useEffect(() => {
-    // Add TRON background if not present
-    if (!document.querySelector('.tron-bg')) {
-      const bg = document.createElement('div');
-      bg.className = 'tron-bg';
-      bg.style.zIndex = '1';
-      document.body.appendChild(bg);
-    }
-    if (!document.querySelector('.tron-particles')) {
-      const pt = document.createElement('div');
-      pt.className = 'tron-particles';
-      pt.style.zIndex = '2';
-      for (let i = 0; i < 22; i++) {
-        const p = document.createElement('div');
-        p.className = 'tron-particle';
-        p.style.left = Math.floor(Math.random() * 98) + 'vw';
-        p.style.top = -Math.random() * 30 + 'vh';
-        p.style.animationDuration = (6 + Math.random() * 4) + 's';
-        p.style.opacity = (0.4 + Math.random() * 0.45).toString();
-        p.style.width = (3.0 + Math.random() * 2) + 'px';
-        pt.appendChild(p);
-      }
-      document.body.appendChild(pt);
-    }
-    return () => {
-      const bg = document.querySelector('.tron-bg');
-      if (bg) bg.remove();
-      const pt = document.querySelector('.tron-particles');
-      if (pt) pt.remove();
-    }
-  }, []);
 
   return (
     <div className="w-full h-screen z-[12] relative">
@@ -149,6 +119,13 @@ export default function NodeGraph() {
           className="neon-minimap"
           nodeColor={() => "#32e6e2"}
           maskColor="rgba(0,0,0,0.92)"
+        />
+        <Background
+          variant="dots"
+          gap={60}
+          size={2}
+          color="#32e6e2"
+          className="neon-background"
         />
       </ReactFlow>
     </div>
