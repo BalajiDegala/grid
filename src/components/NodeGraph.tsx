@@ -1,4 +1,3 @@
-
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import {
   ReactFlow,
@@ -92,6 +91,7 @@ function buildEdges() {
       stroke: '#306ACD',
     },
     data: {
+      kind: c.kind,
       controlPoints: [],
     },
   }));
@@ -121,6 +121,7 @@ export default function NodeGraph() {
           stroke: '#306ACD',
         },
         data: {
+          kind: 'custom',
           controlPoints: isDrawingMode ? [] : undefined,
         },
       };
@@ -168,4 +169,3 @@ export default function NodeGraph() {
     </div>
   );
 }
-
