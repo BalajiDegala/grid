@@ -5,14 +5,16 @@ import {
   EdgeLabelRenderer,
   getBezierPath,
   useReactFlow,
-  Edge,
-  EdgeProps,
-  Position,
+  EdgeProps
 } from '@xyflow/react';
 
-export type EditableEdgeData = {
+/**
+ * Only supporting controlPoints for clean implementation;
+ * If needed, extend here, but keep the interface simple.
+ */
+interface EditableEdgeData {
   controlPoints?: { x: number; y: number }[];
-};
+}
 
 export default function EditableEdge({
   id,
@@ -22,9 +24,9 @@ export default function EditableEdge({
   targetY,
   sourcePosition,
   targetPosition,
-  style = {},
   markerEnd,
   data,
+  style = {},
 }: EdgeProps<EditableEdgeData>) {
   const { setEdges } = useReactFlow();
 
@@ -32,38 +34,27 @@ export default function EditableEdge({
     setEdges((edges) => edges.filter((edge) => edge.id !== id));
   }, [id, setEdges]);
 
-  // If we have control points, use them to create a custom path
   let edgePath: string;
   let labelX: number;
   let labelY: number;
 
-  if (data?.controlPoints && data.controlPoints.length > 0) {
-    // Create a custom path with control points
+  const controlPoints = (data && 'controlPoints' in data) ? data.controlPoints : undefined;
+
+  if (controlPoints && controlPoints.length > 0) {
     const points = [
       { x: sourceX, y: sourceY },
-      ...data.controlPoints,
+      ...controlPoints,
       { x: targetX, y: targetY },
     ];
-    
-    // Create SVG path string
     edgePath = `M ${points[0].x} ${points[0].y}`;
     for (let i = 1; i < points.length; i++) {
-      if (i === points.length - 1) {
-        edgePath += ` L ${points[i].x} ${points[i].y}`;
-      } else {
-        // Use quadratic bezier curves between points
-        const cp = points[i];
-        const next = points[i + 1];
-        edgePath += ` Q ${cp.x} ${cp.y} ${(cp.x + next.x) / 2} ${(cp.y + next.y) / 2}`;
-      }
+      edgePath += ` L ${points[i].x} ${points[i].y}`;
     }
-    
-    // Calculate label position (middle of the path)
+    // Optionally: label in the center control point
     const midIndex = Math.floor(points.length / 2);
     labelX = points[midIndex].x;
     labelY = points[midIndex].y;
   } else {
-    // Use default bezier path
     [edgePath, labelX, labelY] = getBezierPath({
       sourceX,
       sourceY,
@@ -76,35 +67,30 @@ export default function EditableEdge({
 
   return (
     <>
-      <BaseEdge 
-        path={edgePath} 
-        markerEnd={markerEnd} 
+      <BaseEdge
+        path={edgePath}
+        markerEnd={markerEnd}
         style={{
-          strokeWidth: 3,
-          stroke: '#32e6e2',
-          filter: 'drop-shadow(0 0 6px #32e6e2)',
+          strokeWidth: 2,
+          stroke: '#306ACD',
           ...style,
-        }} 
+        }}
       />
-      
-      {/* Render control points as draggable handles */}
-      {data?.controlPoints?.map((point, index) => (
+      {!!controlPoints && controlPoints.map((point, idx) => (
         <circle
-          key={`control-${index}`}
+          key={idx}
           cx={point.x}
           cy={point.y}
-          r={6}
-          fill="#32e6e2"
-          stroke="#184656"
+          r={7}
+          fill="#fff"
+          stroke="#306ACD"
           strokeWidth={2}
           className="editable-edge-control-point"
           style={{
             cursor: 'grab',
-            filter: 'drop-shadow(0 0 4px #32e6e2)',
           }}
         />
       ))}
-      
       <EdgeLabelRenderer>
         <div
           className="editable-edge-label nodrag nopan"
@@ -114,21 +100,22 @@ export default function EditableEdge({
             pointerEvents: 'all',
           }}
         >
-          <button 
+          <button
             className="editable-edge-button"
             onClick={onEdgeClick}
             style={{
-              background: '#32e6e2',
-              border: '2px solid #184656',
+              background: '#fff',
+              border: '1.5px solid #CBD5E1',
               borderRadius: '50%',
               width: '24px',
               height: '24px',
               cursor: 'pointer',
-              color: '#000',
-              fontSize: '12px',
+              color: '#306ACD',
+              fontSize: '18px',
               fontWeight: 'bold',
-              boxShadow: '0 0 8px #32e6e2',
+              boxShadow: '0 1px 3px #0001',
             }}
+            title="Delete edge"
           >
             ×
           </button>

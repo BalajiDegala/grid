@@ -10,7 +10,6 @@ import {
   Connection,
   Edge,
   Node,
-  Position,
   BackgroundVariant,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -21,7 +20,6 @@ import CustomConnectionLine from './CustomConnectionLine';
 import { useSpaceKey } from '../hooks/useSpaceKey';
 import { THEME, WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
-// ** Center the grid more dynamically **
 const nodePositions = {
   day:        { x: 200, y: 50 },
   date:       { x: 540, y: 50 },
@@ -81,16 +79,15 @@ function buildEdges() {
     source: c.source,
     target: c.target,
     type: 'editableEdge',
-    animated: true,
-    className: 'animated-edge',
+    animated: false,
     style: {
-      strokeWidth: 3,
-      stroke: '#32e6e2',
+      strokeWidth: 2,
+      stroke: '#306ACD',
     },
     data: {
-      controlPoints: [], // Start with no control points
+      controlPoints: [],
     },
-  })) as Edge[];
+  }));
 }
 
 export default function NodeGraph() {
@@ -111,10 +108,10 @@ export default function NodeGraph() {
         ...params,
         id: `e-${params.source}-${params.target}-${Date.now()}`,
         type: 'editableEdge',
-        animated: true,
+        animated: false,
         style: {
-          strokeWidth: 3,
-          stroke: '#32e6e2',
+          strokeWidth: 2,
+          stroke: '#306ACD',
         },
         data: {
           controlPoints: isDrawingMode ? [] : undefined,
@@ -126,13 +123,12 @@ export default function NodeGraph() {
   );
 
   return (
-    <div className="w-full h-screen z-[12] relative">
+    <div className="w-full h-screen z-[12] relative bg-white">
       {isDrawingMode && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-black/80 text-cyan-400 px-4 py-2 rounded-md border border-cyan-400">
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-neutral-100 text-blue-700 px-4 py-2 rounded-md border border-blue-400 shadow">
           Freeform Drawing Mode (Hold Space)
         </div>
       )}
-      
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -145,26 +141,21 @@ export default function NodeGraph() {
         fitView
         minZoom={0.4}
         maxZoom={1.2}
-        className="neon-flow"
+        className="clean-flow"
         attributionPosition="top-right"
       >
-        <Controls 
-          className="neon-controls"
-          showZoom={true}
-          showFitView={true}
-          showInteractive={false}
-        />
-        <MiniMap 
-          className="neon-minimap"
-          nodeColor={() => "#32e6e2"}
-          maskColor="rgba(0,0,0,0.92)"
+        <Controls className="clean-controls" showZoom showFitView showInteractive={false} />
+        <MiniMap
+          className="clean-minimap"
+          nodeColor={() => "#BCD0FB"}
+          maskColor="rgba(0,0,0,0.06)"
         />
         <Background
           variant={BackgroundVariant.Dots}
           gap={60}
-          size={3}
-          color="#32e6e2"
-          className="neon-background"
+          size={2}
+          color="#E2E8F0"
+          className="clean-background"
         />
       </ReactFlow>
     </div>

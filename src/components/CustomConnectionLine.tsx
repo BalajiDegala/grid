@@ -23,25 +23,16 @@ export default function CustomConnectionLine({
     <g>
       <path
         fill="none"
-        stroke="#32e6e2"
-        strokeWidth={3}
-        strokeDasharray="10,5"
+        stroke="#306ACD"
+        strokeWidth={2}
+        strokeDasharray="8,5"
         d={edgePath}
-        style={{
-          filter: 'drop-shadow(0 0 6px #32e6e2)',
-          animation: 'dash 1s linear infinite',
-        }}
       />
       <circle
         cx={toX}
         cy={toY}
-        fill="#32e6e2"
+        fill="#3050CD"
         r={4}
-        stroke="#184656"
-        strokeWidth={2}
-        style={{
-          filter: 'drop-shadow(0 0 4px #32e6e2)',
-        }}
       />
     </g>
   );

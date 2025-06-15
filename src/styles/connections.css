@@ -1,62 +1,25 @@
 
 /*
-  connections.css: Styling for React Flow edges and handles.
+  Minimal reactive edge and handle styles for clean design.
 */
 
-.neon-handle {
-  background: var(--color-primary);
-  border: 3px solid #184656;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  box-shadow: 0 0 10px 4px #00fff7bb;
-  z-index: 16;
-}
-
-/* Enhanced Animated Edges */
-.animated-edge .react-flow__edge-path {
-  stroke: var(--color-primary) !important;
-  stroke-width: 3px !important;
-  stroke-dasharray: 10;
-  animation: dashdraw 40s linear infinite, neon-pulse 3s ease-in-out infinite !important;
-  filter: drop-shadow(0 0 8px var(--color-primary-glow)) !important;
-}
-
-.react-flow__edge-path {
-  stroke: var(--color-primary) !important;
-  stroke-width: 3.2px !important;
-  filter: drop-shadow(0 0 6px var(--color-primary-glow)) drop-shadow(0 0 12px #32e6e2) !important;
-  opacity: 0.98 !important;
-}
-
-.react-flow__edge:hover .react-flow__edge-path,
-.react-flow__edge.selected .react-flow__edge-path {
-  stroke: var(--color-text-primary) !important;
-  filter: drop-shadow(0 0 12px #ffffff) !important;
-}
-
-/* Enhanced Edge Labels */
-.react-flow__edge-textbg {
-  fill: var(--color-background-dark) !important;
-  stroke: var(--color-primary) !important;
-  stroke-width: 1px !important;
-}
-
-.react-flow__edge-text {
-  fill: var(--color-primary) !important;
-  font-family: var(--font-family-main) !important;
-  text-shadow: 0 0 4px #32e6e2 !important;
-}
-
-/* Editable Edge Styles */
+.neon-handle,
 .editable-edge-control-point {
-  cursor: grab;
-  transition: all 0.2s ease;
+  background: #ffffff;
+  border: 2px solid #306ACD;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px #0001;
+}
+
+.editable-edge-control-point {
+  transition: r 0.2s, box-shadow 0.2s;
 }
 
 .editable-edge-control-point:hover {
-  r: 8;
-  filter: drop-shadow(0 0 8px #32e6e2) !important;
+  r: 10;
+  box-shadow: 0 2px 6px #306acd55;
 }
 
 .editable-edge-control-point:active {
@@ -68,17 +31,45 @@
 }
 
 .editable-edge-button {
-  transition: all 0.2s ease;
+  transition: box-shadow 0.2s, background 0.2s;
 }
 
 .editable-edge-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 12px #32e6e2 !important;
+  background: #e0e7ef;
+  box-shadow: 0 3px 8px #306acd34;
 }
 
-/* Connection Line Animation */
-@keyframes dash {
-  to {
-    stroke-dashoffset: -15;
-  }
+.animated-edge .react-flow__edge-path, 
+.react-flow__edge-path {
+  stroke: #306ACD !important;
+  stroke-width: 2px !important;
+  opacity: 1;
+  filter: none !important;
+  stroke-dasharray: 0 !important;
 }
+
+.react-flow__edge:hover .react-flow__edge-path,
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #19398a !important;
+}
+
+.react-flow__edge-textbg {
+  fill: #eef3fa !important;
+  stroke: #bcd0fb !important;
+  stroke-width: 1.2px !important;
+}
+
+.react-flow__edge-text {
+  fill: #2d436b !important;
+  font-family: inherit !important;
+}
+
+/* Minimalist handles */
+.react-flow__handle {
+  background: #fff;
+  border: 2px solid #bcd0fb;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
