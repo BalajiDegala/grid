@@ -21,6 +21,22 @@
   font-size: 15px;
 }
 
+/* Special rectangular box styling for Full Date node */
+.time-node[data-node-id="date"] {
+  border-radius: 4px;
+  border: 2px solid #306ACD;
+  background: #f8faff;
+  box-shadow: 0 2px 8px rgba(48, 106, 205, 0.15);
+  min-width: 200px;
+  padding: 20px 18px;
+}
+
+.time-node[data-node-id="date"]:hover {
+  border-color: #19398a;
+  background: #f3f7fd;
+  box-shadow: 0 3px 12px rgba(48, 106, 205, 0.25);
+}
+
 .website-node {
   cursor: pointer;
   background: #f9fafe;

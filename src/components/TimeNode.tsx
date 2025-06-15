@@ -8,9 +8,10 @@ interface TimeNodeProps {
     type: 'day' | 'date' | 'time' | 'laTime';
     debugId?: string;
   };
+  id: string;
 }
 
-export default function TimeNode({ data }: TimeNodeProps) {
+export default function TimeNode({ data, id }: TimeNodeProps) {
   const [timeValue, setTimeValue] = useState('');
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function TimeNode({ data }: TimeNodeProps) {
   }, [data.type]);
 
   return (
-    <div className="time-node">
+    <div className="time-node" data-node-id={id}>
       <div className="node-corner top-left"></div>
       <div className="node-corner top-right"></div>
       <div className="node-corner bottom-left"></div>
