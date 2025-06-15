@@ -46,6 +46,7 @@ export const TIME_NODES = [
 ];
 
 // Only use cyan for all connections.
+// Removed github->youtube and youtube->spotify to avoid horizontal/parent-child links on last line.
 export const CONNECTIONS = [
   { source: "day", target: "date", kind: "temporal" },
   { source: "date", target: "localTime", kind: "temporal" },
@@ -55,7 +56,7 @@ export const CONNECTIONS = [
   { source: "laTime", target: "youtube", kind: "entertainment" },
   { source: "laTime", target: "twitter", kind: "social" },
   { source: "date", target: "netflix", kind: "entertainment" },
-  { source: "date", target: "spotify", kind: "entertainment" },
-  { source: "github", target: "youtube", kind: "tutorials" },
-  { source: "youtube", target: "spotify", kind: "media" }
+  { source: "date", target: "spotify", kind: "entertainment" }
+  // Removed: { source: "github", target: "youtube", kind: "tutorials" },
+  // Removed: { source: "youtube", target: "spotify", kind: "media" }
 ];
