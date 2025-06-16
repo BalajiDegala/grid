@@ -95,3 +95,7 @@ kubectl apply -f k8s/deployment.yaml
 ```
 
 This manifest also creates a ConfigMap containing the `VITE_*` environment variables. Update the file if you need different values.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
