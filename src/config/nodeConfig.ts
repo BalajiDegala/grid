@@ -28,13 +28,45 @@ export type WebsiteNodeConfig = {
   category: "Productivity" | "Entertainment" | "Social";
 };
 
+const env = import.meta.env;
+
 export const WEBSITE_NODES: WebsiteNodeConfig[] = [
-  { id: "google", label: "Google", url: "https://google.com", category: "Productivity" },
-  { id: "github", label: "GitHub", url: "https://github.com", category: "Productivity" },
-  { id: "youtube", label: "YouTube", url: "https://youtube.com", category: "Entertainment" },
-  { id: "twitter", label: "Twitter (X)", url: "https://twitter.com", category: "Social" },
-  { id: "netflix", label: "Netflix", url: "https://netflix.com", category: "Entertainment" },
-  { id: "spotify", label: "Spotify", url: "https://spotify.com", category: "Entertainment" },
+  {
+    id: "google",
+    label: env.VITE_GOOGLE_LABEL ?? "Google",
+    url: env.VITE_GOOGLE_URL ?? "https://google.com",
+    category: "Productivity",
+  },
+  {
+    id: "github",
+    label: env.VITE_GITHUB_LABEL ?? "GitHub",
+    url: env.VITE_GITHUB_URL ?? "https://github.com",
+    category: "Productivity",
+  },
+  {
+    id: "youtube",
+    label: env.VITE_YOUTUBE_LABEL ?? "YouTube",
+    url: env.VITE_YOUTUBE_URL ?? "https://youtube.com",
+    category: "Entertainment",
+  },
+  {
+    id: "twitter",
+    label: env.VITE_TWITTER_LABEL ?? "Twitter (X)",
+    url: env.VITE_TWITTER_URL ?? "https://twitter.com",
+    category: "Social",
+  },
+  {
+    id: "netflix",
+    label: env.VITE_NETFLIX_LABEL ?? "Netflix",
+    url: env.VITE_NETFLIX_URL ?? "https://netflix.com",
+    category: "Entertainment",
+  },
+  {
+    id: "spotify",
+    label: env.VITE_SPOTIFY_LABEL ?? "Spotify",
+    url: env.VITE_SPOTIFY_URL ?? "https://spotify.com",
+    category: "Entertainment",
+  },
 ];
 
 export const TIME_NODES = [
