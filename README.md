@@ -71,3 +71,17 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Customizing website nodes
+
+The labels and URLs for the predefined website nodes can be changed without
+touching the source code. Copy `.env.example` to `.env` and edit the values:
+
+```bash
+cp .env.example .env
+# then update the VITE_* variables to point to your preferred sites
+```
+
+Vite exposes any environment variable starting with `VITE_` to the client. Each
+node has both a `*_LABEL` and `*_URL` variable. Refer to `.env.example` for the
+full list of supported variables.
