@@ -19,7 +19,7 @@ import WebsiteNode from './WebsiteNode';
 import EditableEdge from './EditableEdge';
 import CustomConnectionLine from './CustomConnectionLine';
 import { useSpaceKey } from '../hooks/useSpaceKey';
-import { THEME, WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
+import { WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
 // More spacious grid layout positions with increased spacing
 const nodePositions = {
