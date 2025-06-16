@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: time-link-grid-env
+  labels:
+    app: time-link-grid
+data:
+  VITE_GOOGLE_LABEL: "Google"
+  VITE_GOOGLE_URL: "https://google.com"
+  VITE_GITHUB_LABEL: "GitHub"
+  VITE_GITHUB_URL: "https://github.com"
+  VITE_YOUTUBE_LABEL: "YouTube"
+  VITE_YOUTUBE_URL: "https://youtube.com"
+  VITE_TWITTER_LABEL: "Twitter (X)"
+  VITE_TWITTER_URL: "https://twitter.com"
+  VITE_NETFLIX_LABEL: "Netflix"
+  VITE_NETFLIX_URL: "https://netflix.com"
+  VITE_SPOTIFY_LABEL: "Spotify"
+  VITE_SPOTIFY_URL: "https://spotify.com"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: time-link-grid
+  labels:
+    app: time-link-grid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: time-link-grid
+  template:
+    metadata:
+      labels:
+        app: time-link-grid
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/your-org/time-link-grid:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: time-link-grid-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: time-link-grid
+spec:
+  selector:
+    app: time-link-grid
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP

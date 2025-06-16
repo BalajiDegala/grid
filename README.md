@@ -85,3 +85,13 @@ cp .env.example .env
 Vite exposes any environment variable starting with `VITE_` to the client. Each
 node has both a `*_LABEL` and `*_URL` variable. Refer to `.env.example` for the
 full list of supported variables.
+
+## Deploying to Kubernetes
+
+A sample Deployment and Service is provided in `k8s/deployment.yaml`. Apply it with:
+
+```bash
+kubectl apply -f k8s/deployment.yaml
+```
+
+This manifest also creates a ConfigMap containing the `VITE_*` environment variables. Update the file if you need different values.
