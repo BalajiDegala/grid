@@ -1,29 +1,34 @@
+
 import React from 'react';
-import { ConnectionLineComponentProps, getStraightPath } from '@xyflow/react';
+import { ConnectionLineComponentProps, getBezierPath } from '@xyflow/react';
 
 export default function CustomConnectionLine({
   fromX,
   fromY,
   toX,
   toY,
+  fromPosition,
+  toPosition,
 }: ConnectionLineComponentProps) {
-  const [edgePath] = getStraightPath({
+  const [edgePath] = getBezierPath({
     sourceX: fromX,
     sourceY: fromY,
+    sourcePosition: fromPosition,
     targetX: toX,
     targetY: toY,
+    targetPosition: toPosition,
   });
 
   return (
     <g>
       <path
         fill="none"
-        stroke="#00d4ff"
+        stroke="#2563eb"
         strokeWidth={2}
         strokeDasharray="8,5"
         d={edgePath}
         style={{
-          filter: 'drop-shadow(0 0 6px rgba(0, 212, 255, 0.5))',
+          opacity: 0.6,
         }}
       />
       <rect
@@ -31,11 +36,12 @@ export default function CustomConnectionLine({
         y={toY - 4}
         width={8}
         height={8}
-        fill="#00d4ff"
-        stroke="#0099cc"
+        fill="#2563eb"
+        stroke="#1d4ed8"
         strokeWidth={1}
+        rx={4}
         style={{
-          filter: 'drop-shadow(0 0 4px rgba(0, 212, 255, 0.6))',
+          opacity: 0.8,
         }}
       />
     </g>

@@ -1,15 +1,15 @@
+
 /*
-  nodes.css: Rectangular nodes with clear data boundaries matching reference image.
+  nodes.css: Clean white theme nodes with modern styling.
 */
 
 .time-node, .website-node {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  border-radius: 8px;
-  border: 2px solid #00d4ff;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
   box-shadow: 
-    0 0 20px rgba(0, 212, 255, 0.3),
-    0 4px 12px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   min-width: 200px;
   max-width: 300px;
   text-align: center;
@@ -22,40 +22,37 @@
   margin: 0;
   font-size: 15px;
   transition: all var(--transition-duration) var(--transition-timing);
-  backdrop-filter: blur(10px);
 }
 
 /* Time nodes styling */
 .time-node {
-  background: linear-gradient(135deg, #1a2a3a 0%, #2a3a4a 100%);
-  border: 2px solid #00d4ff;
+  background: #ffffff;
+  border: 2px solid #2563eb;
   box-shadow: 
-    0 0 25px rgba(0, 212, 255, 0.4),
-    0 6px 16px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(0, 212, 255, 0.2);
+    0 4px 6px -1px rgba(37, 99, 235, 0.1),
+    0 2px 4px -1px rgba(37, 99, 235, 0.06);
 }
 
 /* Website nodes styling */
 .website-node {
-  background: linear-gradient(135deg, #2a1a1a 0%, #3a2a2a 100%);
-  border: 2px solid #ff6b35;
+  background: #ffffff;
+  border: 2px solid #dc2626;
   box-shadow: 
-    0 0 25px rgba(255, 107, 53, 0.3),
-    0 6px 16px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 107, 53, 0.2);
+    0 4px 6px -1px rgba(220, 38, 38, 0.1),
+    0 2px 4px -1px rgba(220, 38, 38, 0.06);
   cursor: pointer;
 }
 
 /* Special enhanced styling for Full Date node */
 .time-node[data-node-id="date"], 
 div[data-node-id="date"] .time-node,
-div[data-id="date"] .time-node {
-  border: 3px solid #00d4ff !important;
-  background: linear-gradient(135deg, #1a3a4a 0%, #2a4a5a 100%) !important;
+div[data-id="date"] .time-node,
+.time-node[data-debug-id="date-node"] {
+  border: 3px solid #2563eb !important;
+  background: #f8fafc !important;
   box-shadow: 
-    0 0 35px rgba(0, 212, 255, 0.5),
-    0 8px 20px rgba(0, 0, 0, 0.6),
-    inset 0 2px 0 rgba(0, 212, 255, 0.3) !important;
+    0 10px 15px -3px rgba(37, 99, 235, 0.1),
+    0 4px 6px -2px rgba(37, 99, 235, 0.05) !important;
   min-width: 240px !important;
   padding: 28px 24px !important;
   transform: scale(1.05);
@@ -63,34 +60,32 @@ div[data-id="date"] .time-node {
 
 /* Hover effects */
 .time-node:hover {
-  background: linear-gradient(135deg, #2a3a4a 0%, #3a4a5a 100%);
-  border-color: #33e6ff;
+  background: #f8fafc;
+  border-color: #1d4ed8;
   box-shadow: 
-    0 0 35px rgba(0, 212, 255, 0.6),
-    0 8px 20px rgba(0, 0, 0, 0.6),
-    inset 0 2px 0 rgba(0, 212, 255, 0.3);
-  transform: translateY(-3px) scale(1.02);
+    0 10px 15px -3px rgba(37, 99, 235, 0.1),
+    0 4px 6px -2px rgba(37, 99, 235, 0.05);
+  transform: translateY(-2px);
 }
 
 .website-node:hover {
-  background: linear-gradient(135deg, #3a2a2a 0%, #4a3a3a 100%);
-  border-color: #ff8c5a;
+  background: #fef2f2;
+  border-color: #b91c1c;
   box-shadow: 
-    0 0 35px rgba(255, 107, 53, 0.5),
-    0 8px 20px rgba(0, 0, 0, 0.6),
-    inset 0 2px 0 rgba(255, 107, 53, 0.3);
-  transform: translateY(-3px) scale(1.02);
+    0 10px 15px -3px rgba(220, 38, 38, 0.1),
+    0 4px 6px -2px rgba(220, 38, 38, 0.05);
+  transform: translateY(-2px);
 }
 
 .time-node[data-node-id="date"]:hover,
 div[data-node-id="date"] .time-node:hover,
-div[data-id="date"] .time-node:hover {
-  border-color: #33e6ff !important;
-  background: linear-gradient(135deg, #2a4a5a 0%, #3a5a6a 100%) !important;
+div[data-id="date"] .time-node:hover,
+.time-node[data-debug-id="date-node"]:hover {
+  border-color: #1d4ed8 !important;
+  background: #eff6ff !important;
   box-shadow: 
-    0 0 45px rgba(0, 212, 255, 0.7),
-    0 10px 24px rgba(0, 0, 0, 0.7),
-    inset 0 3px 0 rgba(0, 212, 255, 0.4) !important;
+    0 20px 25px -5px rgba(37, 99, 235, 0.1),
+    0 10px 10px -5px rgba(37, 99, 235, 0.04) !important;
   transform: translateY(-3px) scale(1.07) !important;
 }
 
@@ -110,14 +105,13 @@ div[data-id="date"] .time-node:hover {
 /* Node labels */
 .node-label {
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 6px;
   font-family: var(--font-family-main);
   letter-spacing: var(--letter-spacing-normal);
-  text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+  border-bottom: 1px solid #e2e8f0;
   padding-bottom: 4px;
   width: 100%;
 }
@@ -125,27 +119,25 @@ div[data-id="date"] .time-node:hover {
 /* Node values */
 .node-value {
   font-size: 1.1rem;
-  color: #00d4ff;
-  font-weight: 600;
-  text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
-  background: rgba(0, 212, 255, 0.1);
+  color: #2563eb;
+  font-weight: 500;
+  background: #eff6ff;
   padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 6px;
+  border: 1px solid #dbeafe;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* Node subtitles */
 .node-subtitle {
-  color: #ff6b35;
+  color: #dc2626;
   font-size: 0.95rem;
   font-weight: 500;
-  text-shadow: 0 0 6px rgba(255, 107, 53, 0.5);
-  background: rgba(255, 107, 53, 0.1);
+  background: #fef2f2;
   padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 6px;
+  border: 1px solid #fecaca;
   width: 100%;
   box-sizing: border-box;
 }
@@ -155,9 +147,10 @@ div[data-id="date"] .time-node:hover {
   position: absolute;
   width: 12px;
   height: 12px;
-  border: 2px solid #00d4ff;
-  background: rgba(0, 212, 255, 0.2);
+  border: 2px solid #2563eb;
+  background: #eff6ff;
   z-index: 15;
+  border-radius: 2px;
 }
 
 .node-corner.top-left {
@@ -165,7 +158,6 @@ div[data-id="date"] .time-node:hover {
   left: -6px;
   border-right: none;
   border-bottom: none;
-  border-top-left-radius: 4px;
 }
 
 .node-corner.top-right {
@@ -173,7 +165,6 @@ div[data-id="date"] .time-node:hover {
   right: -6px;
   border-left: none;
   border-bottom: none;
-  border-top-right-radius: 4px;
 }
 
 .node-corner.bottom-left {
@@ -181,7 +172,6 @@ div[data-id="date"] .time-node:hover {
   left: -6px;
   border-right: none;
   border-top: none;
-  border-bottom-left-radius: 4px;
 }
 
 .node-corner.bottom-right {
@@ -189,39 +179,12 @@ div[data-id="date"] .time-node:hover {
   right: -6px;
   border-left: none;
   border-top: none;
-  border-bottom-right-radius: 4px;
 }
 
-/* Website node corners use orange color */
+/* Website node corners use red color */
 .website-node .node-corner {
-  border-color: #ff6b35;
-  background: rgba(255, 107, 53, 0.2);
-}
-
-/* Data container with border effect */
-.node-content::before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  background: linear-gradient(45deg, 
-    transparent, 
-    rgba(0, 212, 255, 0.1), 
-    transparent, 
-    rgba(0, 212, 255, 0.1), 
-    transparent
-  );
-  border-radius: 8px;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity var(--transition-duration);
-}
-
-.time-node:hover .node-content::before,
-.website-node:hover .node-content::before {
-  opacity: 1;
+  border-color: #dc2626;
+  background: #fef2f2;
 }
 
 /* Responsive adjustments */

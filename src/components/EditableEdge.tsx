@@ -1,10 +1,11 @@
+
 import React, { useCallback } from 'react';
 import {
   EdgeLabelRenderer,
   useReactFlow,
   EdgeProps,
   BaseEdge,
-  getStraightPath,
+  getBezierPath,
 } from '@xyflow/react';
 
 export default function EditableEdge({
@@ -32,25 +33,26 @@ export default function EditableEdge({
   const connectionKind = (data as any)?.kind || 'connection';
   const displayLabel = connectionKind.charAt(0).toUpperCase() + connectionKind.slice(1);
 
-  // Create straight path for the connection line
-  const [edgePath] = getStraightPath({
+  // Create curved path for the connection line using bezier
+  const [edgePath] = getBezierPath({
     sourceX,
     sourceY,
+    sourcePosition,
     targetX,
     targetY,
+    targetPosition,
   });
 
   return (
     <>
-      {/* Straight connection line */}
+      {/* Curved connection line */}
       <BaseEdge 
         path={edgePath} 
         markerEnd={markerEnd} 
         style={{
           ...style,
           strokeWidth: 2,
-          stroke: '#00d4ff',
-          filter: 'drop-shadow(0 0 4px rgba(0, 212, 255, 0.3))',
+          stroke: '#2563eb',
         }} 
       />
 
@@ -71,9 +73,9 @@ export default function EditableEdge({
             style={{
               width: '10px',
               height: '10px',
-              borderRadius: '2px',
-              background: '#1e1e1e',
-              border: '2px solid #00d4ff',
+              borderRadius: '50%',
+              background: '#ffffff',
+              border: '2px solid #2563eb',
               cursor: 'pointer',
               opacity: 0,
               transition: 'all 0.2s ease',
@@ -81,15 +83,15 @@ export default function EditableEdge({
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.opacity = '1';
-              e.currentTarget.style.borderColor = '#0099cc';
+              e.currentTarget.style.borderColor = '#1d4ed8';
               e.currentTarget.style.transform = 'scale(1.3)';
-              e.currentTarget.style.boxShadow = '0 0 12px rgba(0, 212, 255, 0.8)';
+              e.currentTarget.style.boxShadow = '0 4px 8px rgba(37, 99, 235, 0.3)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.opacity = '0';
-              e.currentTarget.style.borderColor = '#00d4ff';
+              e.currentTarget.style.borderColor = '#2563eb';
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 0 6px rgba(0, 212, 255, 0.4)';
+              e.currentTarget.style.boxShadow = '0 2px 4px rgba(37, 99, 235, 0.2)';
             }}
             onClick={onEdgeClick}
             title={`${displayLabel} connection - Click to delete`}

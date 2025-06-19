@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 
@@ -25,7 +26,7 @@ export default function WebsiteNode({ data }: WebsiteNodeProps) {
         type="target" 
         position={Position.Top} 
         className="neon-handle"
-        style={{ background: '#ff6b35', border: '2px solid #cc5429' }}
+        style={{ background: '#ffffff', border: '2px solid #dc2626' }}
       />
       
       <div className="node-content" data-debug-id={data.debugId || undefined}>
@@ -37,7 +38,7 @@ export default function WebsiteNode({ data }: WebsiteNodeProps) {
         type="source" 
         position={Position.Bottom} 
         className="neon-handle"
-        style={{ background: '#ff6b35', border: '2px solid #cc5429' }}
+        style={{ background: '#ffffff', border: '2px solid #dc2626' }}
       />
     </div>
   );

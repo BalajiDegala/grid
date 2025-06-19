@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Handle, Position } from '@xyflow/react';
 
@@ -53,7 +54,12 @@ export default function TimeNode({ data, id }: TimeNodeProps) {
   }, [data.type]);
 
   return (
-    <div className="time-node" data-node-id={id} data-id={id}>
+    <div 
+      className="time-node" 
+      data-node-id={id} 
+      data-id={id}
+      data-debug-id={data.type === 'date' ? 'date-node' : data.debugId}
+    >
       <div className="node-corner top-left"></div>
       <div className="node-corner top-right"></div>
       <div className="node-corner bottom-left"></div>
@@ -63,7 +69,7 @@ export default function TimeNode({ data, id }: TimeNodeProps) {
         type="target" 
         position={Position.Top} 
         className="neon-handle"
-        style={{ background: '#00d4ff', border: '2px solid #0099cc' }}
+        style={{ background: '#ffffff', border: '2px solid #2563eb' }}
       />
       
       <div className="node-content" data-debug-id={data.debugId || undefined}>
@@ -75,7 +81,7 @@ export default function TimeNode({ data, id }: TimeNodeProps) {
         type="source" 
         position={Position.Bottom} 
         className="neon-handle"
-        style={{ background: '#00d4ff', border: '2px solid #0099cc' }}
+        style={{ background: '#ffffff', border: '2px solid #2563eb' }}
       />
     </div>
   );
