@@ -1,3 +1,4 @@
+
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import {
   ReactFlow,
@@ -111,7 +112,7 @@ export default function NodeGraph() {
         animated: false,
         style: {
           strokeWidth: 2,
-          stroke: '#00d4ff',
+          stroke: '#000000',
         },
         data: {
           kind: 'custom',
@@ -123,9 +124,9 @@ export default function NodeGraph() {
   );
 
   return (
-    <div className="w-full h-screen z-[12] relative" style={{ background: '#0a0a0a' }}>
+    <div className="w-full h-screen z-[12] relative" style={{ background: '#ffffff' }}>
       {isDrawingMode && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-gray-900 text-blue-400 px-6 py-3 rounded-lg border border-blue-500 shadow-lg">
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-white text-black px-6 py-3 rounded-lg border border-black shadow-lg">
           <span className="font-semibold">🎨 Freeform Drawing Mode</span>
           <span className="ml-2 text-sm opacity-75">(Hold Space)</span>
         </div>
@@ -147,35 +148,34 @@ export default function NodeGraph() {
         }}
         minZoom={0.4}
         maxZoom={1.5}
-        className="dark-flow"
+        className="white-flow"
         attributionPosition="top-right"
-        style={{ background: '#0a0a0a' }}
+        style={{ background: '#ffffff' }}
       >
         <Controls 
-          className="dark-controls" 
+          className="white-controls" 
           showZoom 
           showFitView 
           showInteractive={false}
           style={{
-            background: '#1a1a1a',
-            border: '1px solid #00d4ff',
+            background: '#ffffff',
+            border: '1px solid #000000',
             borderRadius: '8px',
-            boxShadow: '0 0 20px rgba(0, 212, 255, 0.3)'
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
           }}
         />
         
         <MiniMap
-          className="dark-minimap"
+          className="white-minimap"
           nodeColor={(node) => {
-            if (node.type === 'timeNode') return "#00d4ff";
-            return "#ff6b35";
+            return "#000000";
           }}
-          maskColor="rgba(0,0,0,0.8)"
+          maskColor="rgba(255,255,255,0.8)"
           style={{
-            background: '#1a1a1a',
-            border: '1px solid #00d4ff',
+            background: '#ffffff',
+            border: '1px solid #000000',
             borderRadius: '8px',
-            boxShadow: '0 0 20px rgba(0, 212, 255, 0.3)'
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
           }}
         />
         
@@ -183,8 +183,8 @@ export default function NodeGraph() {
           variant={BackgroundVariant.Dots}
           gap={80}
           size={2}
-          color="#00d4ff"
-          className="dark-background"
+          color="#000000"
+          className="white-background"
           style={{ opacity: 0.2 }}
         />
       </ReactFlow>
