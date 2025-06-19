@@ -1,23 +1,23 @@
 /**
- * TRON Legacy Node Graph Config: minimal neon cyan, grid-first.
+ * Dark Node Graph Config: Customizable nodes with environment variables
  */
 export const THEME = {
-  background: "#0a0f1a",
+  background: "#0a0a0a",
   node: {
     fontFamily: "'Orbitron', monospace, sans-serif",
     fontSize: "1rem",
-    radius: "0px",
-    padding: "18px 16px",
-    shadow: "0 0 14px 1px #00fff7bb, 0 0 1.5px #32e6e2",
-    borderWidth: 2.5,
-    borderColor: "#00fff7",
-    accent: "#32e6e2", // only cyan
-    edge: "#32e6e2",   // only cyan for all edges!
-    websiteBorder: "#00fff7",
-    timeBorder: "#00fff7",
-    valueColor: "#e6edf3",
-    subColor: "#32e6e2",
-    subtitleFontSize: "0.92rem"
+    radius: "4px",
+    padding: "20px 18px",
+    shadow: "0 0 20px rgba(0, 212, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.4)",
+    borderWidth: 2,
+    borderColor: "#00d4ff",
+    accent: "#00d4ff",
+    edge: "#00d4ff",
+    websiteBorder: "#ff6b35",
+    timeBorder: "#00d4ff",
+    valueColor: "#ffffff",
+    subColor: "#ff6b35",
+    subtitleFontSize: "0.9rem"
   },
 };
 
@@ -25,47 +25,47 @@ export type WebsiteNodeConfig = {
   id: string;
   label: string;
   url: string;
-  category: "Productivity" | "Entertainment" | "Social";
+  category: "Productivity" | "Analytics" | "Monitoring" | "Documentation" | "Support" | "Admin";
 };
 
 const env = import.meta.env;
 
 export const WEBSITE_NODES: WebsiteNodeConfig[] = [
   {
-    id: "google",
-    label: env.VITE_GOOGLE_LABEL ?? "Google",
-    url: env.VITE_GOOGLE_URL ?? "https://google.com",
+    id: "node1",
+    label: env.VITE_NODE1_LABEL ?? "My Dashboard",
+    url: env.VITE_NODE1_URL ?? "https://dashboard.mycompany.com",
     category: "Productivity",
   },
   {
-    id: "github",
-    label: env.VITE_GITHUB_LABEL ?? "GitHub",
-    url: env.VITE_GITHUB_URL ?? "https://github.com",
-    category: "Productivity",
+    id: "node2",
+    label: env.VITE_NODE2_LABEL ?? "Analytics",
+    url: env.VITE_NODE2_URL ?? "https://analytics.mycompany.com",
+    category: "Analytics",
   },
   {
-    id: "youtube",
-    label: env.VITE_YOUTUBE_LABEL ?? "YouTube",
-    url: env.VITE_YOUTUBE_URL ?? "https://youtube.com",
-    category: "Entertainment",
+    id: "node3",
+    label: env.VITE_NODE3_LABEL ?? "Monitoring",
+    url: env.VITE_NODE3_URL ?? "https://monitoring.mycompany.com",
+    category: "Monitoring",
   },
   {
-    id: "twitter",
-    label: env.VITE_TWITTER_LABEL ?? "Twitter (X)",
-    url: env.VITE_TWITTER_URL ?? "https://twitter.com",
-    category: "Social",
+    id: "node4",
+    label: env.VITE_NODE4_LABEL ?? "Documentation",
+    url: env.VITE_NODE4_URL ?? "https://docs.mycompany.com",
+    category: "Documentation",
   },
   {
-    id: "netflix",
-    label: env.VITE_NETFLIX_LABEL ?? "Netflix",
-    url: env.VITE_NETFLIX_URL ?? "https://netflix.com",
-    category: "Entertainment",
+    id: "node5",
+    label: env.VITE_NODE5_LABEL ?? "Support",
+    url: env.VITE_NODE5_URL ?? "https://support.mycompany.com",
+    category: "Support",
   },
   {
-    id: "spotify",
-    label: env.VITE_SPOTIFY_LABEL ?? "Spotify",
-    url: env.VITE_SPOTIFY_URL ?? "https://spotify.com",
-    category: "Entertainment",
+    id: "node6",
+    label: env.VITE_NODE6_LABEL ?? "Admin Panel",
+    url: env.VITE_NODE6_URL ?? "https://admin.mycompany.com",
+    category: "Admin",
   },
 ];
 
@@ -76,18 +76,17 @@ export const TIME_NODES = [
   { id: "laTime", label: "LA Time", type: "laTime" },
 ];
 
-// Only use cyan for all connections.
-// Reworked: All website nodes are only children of localTime (single parent).
+// Straight connections - all website nodes connected to localTime
 export const CONNECTIONS = [
   { source: "date", target: "day", kind: "temporal" },
   { source: "day", target: "localTime", kind: "temporal" },
   { source: "day", target: "laTime", kind: "temporal" },
 
-  // All URLs connected ONLY to localTime
-  { source: "localTime", target: "google", kind: "utility" },
-  { source: "localTime", target: "github", kind: "utility" },
-  { source: "localTime", target: "youtube", kind: "entertainment" },
-  { source: "localTime", target: "twitter", kind: "social" },
-  { source: "localTime", target: "netflix", kind: "entertainment" },
-  { source: "localTime", target: "spotify", kind: "entertainment" }
+  // All custom nodes connected to localTime
+  { source: "localTime", target: "node1", kind: "utility" },
+  { source: "localTime", target: "node2", kind: "analytics" },
+  { source: "localTime", target: "node3", kind: "monitoring" },
+  { source: "localTime", target: "node4", kind: "documentation" },
+  { source: "localTime", target: "node5", kind: "support" },
+  { source: "localTime", target: "node6", kind: "admin" }
 ];

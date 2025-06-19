@@ -1,11 +1,10 @@
-
 import React, { useCallback } from 'react';
 import {
   EdgeLabelRenderer,
   useReactFlow,
   EdgeProps,
   BaseEdge,
-  getBezierPath,
+  getStraightPath,
 } from '@xyflow/react';
 
 export default function EditableEdge({
@@ -33,30 +32,29 @@ export default function EditableEdge({
   const connectionKind = (data as any)?.kind || 'connection';
   const displayLabel = connectionKind.charAt(0).toUpperCase() + connectionKind.slice(1);
 
-  // Create the bezier path for the connection line
-  const [edgePath] = getBezierPath({
+  // Create straight path for the connection line
+  const [edgePath] = getStraightPath({
     sourceX,
     sourceY,
-    sourcePosition,
     targetX,
     targetY,
-    targetPosition,
   });
 
   return (
     <>
-      {/* Clean connection line */}
+      {/* Straight connection line */}
       <BaseEdge 
         path={edgePath} 
         markerEnd={markerEnd} 
         style={{
           ...style,
-          strokeWidth: 1.5,
-          stroke: '#CBD5E1',
+          strokeWidth: 2,
+          stroke: '#00d4ff',
+          filter: 'drop-shadow(0 0 4px rgba(0, 212, 255, 0.3))',
         }} 
       />
 
-      {/* Minimal connection point - only visible on hover */}
+      {/* Connection point - only visible on hover */}
       <EdgeLabelRenderer>
         <div
           style={{
@@ -71,11 +69,11 @@ export default function EditableEdge({
           <div
             className="connection-point"
             style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: '#fff',
-              border: '2px solid #CBD5E1',
+              width: '10px',
+              height: '10px',
+              borderRadius: '2px',
+              background: '#1e1e1e',
+              border: '2px solid #00d4ff',
               cursor: 'pointer',
               opacity: 0,
               transition: 'all 0.2s ease',
@@ -83,13 +81,15 @@ export default function EditableEdge({
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.opacity = '1';
-              e.currentTarget.style.borderColor = '#306ACD';
-              e.currentTarget.style.transform = 'scale(1.2)';
+              e.currentTarget.style.borderColor = '#0099cc';
+              e.currentTarget.style.transform = 'scale(1.3)';
+              e.currentTarget.style.boxShadow = '0 0 12px rgba(0, 212, 255, 0.8)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.opacity = '0';
-              e.currentTarget.style.borderColor = '#CBD5E1';
+              e.currentTarget.style.borderColor = '#00d4ff';
               e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 0 6px rgba(0, 212, 255, 0.4)';
             }}
             onClick={onEdgeClick}
             title={`${displayLabel} connection - Click to delete`}

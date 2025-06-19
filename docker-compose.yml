@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  time-link-grid:
+    build: .
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_NODE1_LABEL=My Dashboard
+      - VITE_NODE1_URL=https://dashboard.mycompany.com
+      - VITE_NODE2_LABEL=Analytics
+      - VITE_NODE2_URL=https://analytics.mycompany.com
+      - VITE_NODE3_LABEL=Monitoring
+      - VITE_NODE3_URL=https://monitoring.mycompany.com
+      - VITE_NODE4_LABEL=Documentation
+      - VITE_NODE4_URL=https://docs.mycompany.com
+      - VITE_NODE5_LABEL=Support
+      - VITE_NODE5_URL=https://support.mycompany.com
+      - VITE_NODE6_LABEL=Admin Panel
+      - VITE_NODE6_URL=https://admin.mycompany.com
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

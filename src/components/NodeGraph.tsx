@@ -1,4 +1,3 @@
-
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
 import {
   ReactFlow,
@@ -21,22 +20,22 @@ import CustomConnectionLine from './CustomConnectionLine';
 import { useSpaceKey } from '../hooks/useSpaceKey';
 import { WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
-// More spacious grid layout positions with increased spacing
+// Updated grid layout positions with better spacing for dark theme
 const nodePositions = {
   // 1st row, date node only
   date:       { x: 400, y: 50 },
   // 2nd row, day node with more vertical spacing
-  day:        { x: 400, y: 180 },
+  day:        { x: 400, y: 200 },
   // 3rd row, two time nodes with more spacing
-  localTime:  { x: 200, y: 340 },
-  laTime:     { x: 600, y: 340 },
+  localTime:  { x: 200, y: 380 },
+  laTime:     { x: 600, y: 380 },
   // 4th row, spread out website nodes horizontally with more spacing
-  google:     { x: 40,  y: 520 },
-  github:     { x: 200, y: 520 },
-  youtube:    { x: 360, y: 520 },
-  twitter:    { x: 520, y: 520 },
-  netflix:    { x: 680, y: 520 },
-  spotify:    { x: 840, y: 520 },
+  node1:      { x: 40,  y: 580 },
+  node2:      { x: 200, y: 580 },
+  node3:      { x: 360, y: 580 },
+  node4:      { x: 520, y: 580 },
+  node5:      { x: 680, y: 580 },
+  node6:      { x: 840, y: 580 },
 };
 
 const nodeTypes = {
@@ -80,8 +79,8 @@ function buildEdges() {
     type: 'editableEdge',
     animated: false,
     style: {
-      strokeWidth: 1.5,
-      stroke: '#CBD5E1',
+      strokeWidth: 2,
+      stroke: '#00d4ff',
     },
     data: {
       kind: c.kind,
@@ -109,8 +108,8 @@ export default function NodeGraph() {
         type: 'editableEdge',
         animated: false,
         style: {
-          strokeWidth: 1.5,
-          stroke: '#CBD5E1',
+          strokeWidth: 2,
+          stroke: '#00d4ff',
         },
         data: {
           kind: 'custom',
@@ -122,9 +121,9 @@ export default function NodeGraph() {
   );
 
   return (
-    <div className="w-full h-screen z-[12] relative bg-white">
+    <div className="w-full h-screen z-[12] relative" style={{ background: '#0a0a0a' }}>
       {isDrawingMode && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-neutral-100 text-blue-700 px-4 py-2 rounded-md border border-blue-400 shadow">
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-gray-900 text-blue-400 px-4 py-2 rounded-md border border-blue-500 shadow-lg">
           Freeform Drawing Mode (Hold Space)
         </div>
       )}
@@ -139,22 +138,24 @@ export default function NodeGraph() {
         connectionLineComponent={CustomConnectionLine}
         fitView
         minZoom={0.3}
-        maxZoom={1.0}
-        className="clean-flow"
+        maxZoom={1.2}
+        className="dark-flow"
         attributionPosition="top-right"
+        style={{ background: '#0a0a0a' }}
       >
-        <Controls className="clean-controls" showZoom showFitView showInteractive={false} />
+        <Controls className="dark-controls" showZoom showFitView showInteractive={false} />
         <MiniMap
-          className="clean-minimap"
-          nodeColor={() => "#BCD0FB"}
-          maskColor="rgba(0,0,0,0.06)"
+          className="dark-minimap"
+          nodeColor={() => "#00d4ff"}
+          maskColor="rgba(0,0,0,0.8)"
         />
         <Background
           variant={BackgroundVariant.Dots}
-          gap={80}
-          size={1.5}
-          color="#F1F5F9"
-          className="clean-background"
+          gap={60}
+          size={2}
+          color="#00d4ff"
+          className="dark-background"
+          style={{ opacity: 0.3 }}
         />
       </ReactFlow>
     </div>

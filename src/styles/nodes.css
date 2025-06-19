@@ -1,69 +1,107 @@
-
 /*
-  nodes.css: Minimal flat style for TimeNode and WebsiteNode.
+  nodes.css: Dark rectangular node styling with clear data boundaries.
 */
 
 .time-node, .website-node {
-  background: #fff;
-  border-radius: 8px;
-  border: 1.5px solid #CBD5E1;
-  box-shadow: 0 1.5px 6px #0001;
-  min-width: 154px;
-  max-width: 250px;
+  background: var(--color-node-bg);
+  border-radius: var(--border-radius-sharp);
+  border: 2px solid var(--color-node-border);
+  box-shadow: var(--shadow-node);
+  min-width: 180px;
+  max-width: 280px;
   text-align: left;
-  padding: 18px 15px;
-  font-family: inherit;
+  padding: 20px 18px;
+  font-family: var(--font-family-main);
   position: relative;
   overflow: visible;
-  color: #31518a;
+  color: var(--color-text-primary);
   z-index: 10;
   margin: 0;
   font-size: 15px;
+  transition: all var(--transition-duration) var(--transition-timing);
 }
 
-/* Special rectangular box styling for Full Date node - targeting the actual date node */
-.time-node[data-node-id="date"], 
-div[data-node-id="date"] .time-node,
-div[data-id="date"] .time-node {
-  border-radius: 4px !important;
-  border: 3px solid #306ACD !important;
-  background: #f8faff !important;
-  box-shadow: 0 2px 8px rgba(48, 106, 205, 0.15) !important;
-  min-width: 200px !important;
-  padding: 20px 18px !important;
-}
-
-.time-node[data-node-id="date"]:hover,
-div[data-node-id="date"] .time-node:hover,
-div[data-id="date"] .time-node:hover {
-  border-color: #19398a !important;
-  background: #f3f7fd !important;
-  box-shadow: 0 3px 12px rgba(48, 106, 205, 0.25) !important;
+/* Enhanced rectangular styling for all nodes */
+.time-node {
+  background: linear-gradient(135deg, var(--color-node-bg) 0%, #252525 100%);
+  border: 2px solid var(--color-primary);
 }
 
 .website-node {
+  background: linear-gradient(135deg, var(--color-node-bg) 0%, #1a2332 100%);
+  border: 2px solid var(--color-secondary);
   cursor: pointer;
-  background: #f9fafe;
 }
 
-.website-node:hover, .time-node:hover {
-  background: #f3f7fd;
-  border-color: #306ACD;
-  color: #19398a;
+/* Special styling for Full Date node */
+.time-node[data-node-id="date"], 
+div[data-node-id="date"] .time-node,
+div[data-id="date"] .time-node {
+  border: 3px solid var(--color-primary) !important;
+  background: linear-gradient(135deg, #1a2a3a 0%, #2a3a4a 100%) !important;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+  min-width: 220px !important;
+  padding: 24px 20px !important;
 }
 
-/* Override hover styles specifically for the date node */
+/* Hover effects */
+.time-node:hover {
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+  border-color: var(--color-primary-glow);
+  box-shadow: var(--shadow-node-hover);
+  transform: translateY(-2px);
+}
+
+.website-node:hover {
+  background: linear-gradient(135deg, #1a2332 0%, #2a3342 100%);
+  border-color: #ff8c5a;
+  box-shadow: 0 0 30px rgba(255, 107, 53, 0.4), 0 4px 12px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
 .time-node[data-node-id="date"]:hover,
 div[data-node-id="date"] .time-node:hover,
 div[data-id="date"] .time-node:hover {
-  border-color: #19398a !important;
-  background: #f3f7fd !important;
-  box-shadow: 0 3px 12px rgba(48, 106, 205, 0.25) !important;
-  color: #19398a;
+  border-color: var(--color-primary-glow) !important;
+  background: linear-gradient(135deg, #2a3a4a 0%, #3a4a5a 100%) !important;
+  box-shadow: 0 0 35px rgba(0, 212, 255, 0.6), 0 6px 16px rgba(0, 0, 0, 0.7) !important;
 }
 
+/* Node corners for rectangular appearance */
 .node-corner {
-  display: none;
+  position: absolute;
+  width: var(--node-corner-size);
+  height: var(--node-corner-size);
+  border: 1px solid var(--color-primary);
+  background: var(--color-background-dark);
+}
+
+.node-corner.top-left {
+  top: -4px;
+  left: -4px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.node-corner.top-right {
+  top: -4px;
+  right: -4px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.node-corner.bottom-left {
+  bottom: -4px;
+  left: -4px;
+  border-right: none;
+  border-top: none;
+}
+
+.node-corner.bottom-right {
+  bottom: -4px;
+  right: -4px;
+  border-left: none;
+  border-top: none;
 }
 
 .node-content {
@@ -73,31 +111,49 @@ div[data-id="date"] .time-node:hover {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: 0.3em;
 }
 
 .node-label {
-  font-size: 1.08rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #19398a;
-  margin-bottom: 2px;
-  font-family: inherit;
-  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+  font-family: var(--font-family-main);
+  letter-spacing: var(--letter-spacing-normal);
+  text-shadow: var(--shadow-text);
 }
 
-.node-value,
+.node-value {
+  font-size: 1rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  text-shadow: 0 0 6px rgba(0, 212, 255, 0.4);
+}
+
 .node-subtitle {
-  font-size: 0.95rem;
-  color: #4263ad;
+  color: var(--color-secondary);
+  font-size: 0.9rem;
   font-weight: 400;
+  text-shadow: 0 0 4px rgba(255, 107, 53, 0.4);
 }
 
-.node-subtitle {
-  color: #4098dd;
-  font-size: 0.85rem;
+/* Data container styling */
+.node-content::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+  border-radius: var(--border-radius-sharp);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition-duration);
 }
 
-/* Debug id, optional for dev: */
-.node-debug-outline .node-content:after {
-  display: none;
+.time-node:hover .node-content::before,
+.website-node:hover .node-content::before {
+  opacity: 1;
 }
