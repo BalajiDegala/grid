@@ -23,7 +23,7 @@ export default function CustomConnectionLine({
     <g>
       <path
         fill="none"
-        stroke="#2563eb"
+        stroke="#000000"
         strokeWidth={2}
         strokeDasharray="8,5"
         d={edgePath}
@@ -36,8 +36,8 @@ export default function CustomConnectionLine({
         y={toY - 4}
         width={8}
         height={8}
-        fill="#2563eb"
-        stroke="#1d4ed8"
+        fill="#000000"
+        stroke="#333333"
         strokeWidth={1}
         rx={4}
         style={{

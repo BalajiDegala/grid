@@ -1,74 +1,70 @@
 
 /*
-  connections.css: Curved edge connections with clean white theme styling.
+  connections.css: Pure white theme with black connections.
 */
 
 .neon-handle {
   background: #ffffff;
-  border: 2px solid #2563eb;
+  border: 2px solid #000000;
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  box-shadow: 
-    0 2px 4px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   z-index: 20;
 }
 
 .neon-handle:hover {
-  background: #2563eb;
-  box-shadow: 
-    0 4px 8px rgba(37, 99, 235, 0.3);
+  background: #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transform: scale(1.2);
 }
 
-/* Curved edge styling with clean effects */
+/* Curved edge styling with black effects */
 .react-flow__edge-path {
-  stroke: #2563eb !important;
+  stroke: #000000 !important;
   stroke-width: 2px !important;
-  opacity: 0.8;
+  opacity: 1;
   stroke-linecap: round;
 }
 
 .react-flow__edge:hover .react-flow__edge-path {
-  stroke: #1d4ed8 !important;
+  stroke: #333333 !important;
   stroke-width: 3px !important;
   opacity: 1;
 }
 
 .react-flow__edge.selected .react-flow__edge-path {
-  stroke: #dc2626 !important;
+  stroke: #000000 !important;
   stroke-width: 3px !important;
 }
 
 /* Connection point styling */
 .connection-point {
   background: #ffffff !important;
-  border: 2px solid #2563eb !important;
+  border: 2px solid #000000 !important;
   border-radius: 50% !important;
-  box-shadow: 
-    0 2px 4px rgba(37, 99, 235, 0.2) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
   transition: all 0.2s ease;
 }
 
 .connection-point:hover {
-  background: #2563eb !important;
-  border-color: #1d4ed8 !important;
-  box-shadow: 
-    0 4px 8px rgba(37, 99, 235, 0.3) !important;
+  background: #000000 !important;
+  border-color: #333333 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Edge labels with white theme */
 .react-flow__edge-textbg {
   fill: #ffffff !important;
-  stroke: #e2e8f0 !important;
+  stroke: #000000 !important;
   stroke-width: 1px !important;
   rx: 6;
   ry: 6;
 }
 
 .react-flow__edge-text {
-  fill: #1e293b !important;
+  fill: #000000 !important;
   font-family: var(--font-family-main) !important;
   font-size: 12px !important;
   font-weight: 500;
@@ -76,7 +72,7 @@
 
 /* Curved connection line styling */
 .react-flow__connectionline {
-  stroke: #2563eb !important;
+  stroke: #000000 !important;
   stroke-width: 2px !important;
   stroke-dasharray: 8,4 !important;
   opacity: 0.6;
@@ -86,26 +82,24 @@
 /* Enhanced handle styling for different node types */
 .react-flow__handle {
   background: #ffffff;
-  border: 2px solid #2563eb;
+  border: 2px solid #000000;
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  box-shadow: 
-    0 2px 4px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 
 .react-flow__handle:hover {
-  background: #2563eb;
+  background: #000000;
   transform: scale(1.1);
-  box-shadow: 
-    0 4px 8px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .react-flow__handle-top,
 .react-flow__handle-bottom {
   background: #ffffff;
-  border: 2px solid #2563eb;
+  border: 2px solid #000000;
 }
 
 /* Connection line animation */

@@ -52,7 +52,7 @@ export default function EditableEdge({
         style={{
           ...style,
           strokeWidth: 2,
-          stroke: '#2563eb',
+          stroke: '#000000',
         }} 
       />
 
@@ -75,7 +75,7 @@ export default function EditableEdge({
               height: '10px',
               borderRadius: '50%',
               background: '#ffffff',
-              border: '2px solid #2563eb',
+              border: '2px solid #000000',
               cursor: 'pointer',
               opacity: 0,
               transition: 'all 0.2s ease',
@@ -83,15 +83,15 @@ export default function EditableEdge({
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.opacity = '1';
-              e.currentTarget.style.borderColor = '#1d4ed8';
+              e.currentTarget.style.borderColor = '#333333';
               e.currentTarget.style.transform = 'scale(1.3)';
-              e.currentTarget.style.boxShadow = '0 4px 8px rgba(37, 99, 235, 0.3)';
+              e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.opacity = '0';
-              e.currentTarget.style.borderColor = '#2563eb';
+              e.currentTarget.style.borderColor = '#000000';
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 2px 4px rgba(37, 99, 235, 0.2)';
+              e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
             }}
             onClick={onEdgeClick}
             title={`${displayLabel} connection - Click to delete`}

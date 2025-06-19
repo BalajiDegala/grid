@@ -1,15 +1,13 @@
 
 /*
-  nodes.css: Clean white theme nodes with modern styling.
+  nodes.css: Pure white theme nodes with black styling.
 */
 
 .time-node, .website-node {
   background: #ffffff;
   border-radius: 12px;
-  border: 2px solid #e2e8f0;
-  box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 2px solid #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 200px;
   max-width: 300px;
   text-align: center;
@@ -17,7 +15,7 @@
   font-family: var(--font-family-main);
   position: relative;
   overflow: visible;
-  color: var(--color-text-primary);
+  color: #000000;
   z-index: 10;
   margin: 0;
   font-size: 15px;
@@ -27,19 +25,15 @@
 /* Time nodes styling */
 .time-node {
   background: #ffffff;
-  border: 2px solid #2563eb;
-  box-shadow: 
-    0 4px 6px -1px rgba(37, 99, 235, 0.1),
-    0 2px 4px -1px rgba(37, 99, 235, 0.06);
+  border: 2px solid #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Website nodes styling */
 .website-node {
   background: #ffffff;
-  border: 2px solid #dc2626;
-  box-shadow: 
-    0 4px 6px -1px rgba(220, 38, 38, 0.1),
-    0 2px 4px -1px rgba(220, 38, 38, 0.06);
+  border: 2px solid #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
 
@@ -47,12 +41,11 @@
 .time-node[data-node-id="date"], 
 div[data-node-id="date"] .time-node,
 div[data-id="date"] .time-node,
-.time-node[data-debug-id="date-node"] {
-  border: 3px solid #2563eb !important;
-  background: #f8fafc !important;
-  box-shadow: 
-    0 10px 15px -3px rgba(37, 99, 235, 0.1),
-    0 4px 6px -2px rgba(37, 99, 235, 0.05) !important;
+.time-node[data-debug-id="date-node"],
+.react-flow__node[data-id="date"] .time-node {
+  border: 3px solid #000000 !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
   min-width: 240px !important;
   padding: 28px 24px !important;
   transform: scale(1.05);
@@ -60,32 +53,27 @@ div[data-id="date"] .time-node,
 
 /* Hover effects */
 .time-node:hover {
-  background: #f8fafc;
-  border-color: #1d4ed8;
-  box-shadow: 
-    0 10px 15px -3px rgba(37, 99, 235, 0.1),
-    0 4px 6px -2px rgba(37, 99, 235, 0.05);
+  background: #f9f9f9;
+  border-color: #333333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
 .website-node:hover {
-  background: #fef2f2;
-  border-color: #b91c1c;
-  box-shadow: 
-    0 10px 15px -3px rgba(220, 38, 38, 0.1),
-    0 4px 6px -2px rgba(220, 38, 38, 0.05);
+  background: #f9f9f9;
+  border-color: #333333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
 .time-node[data-node-id="date"]:hover,
 div[data-node-id="date"] .time-node:hover,
 div[data-id="date"] .time-node:hover,
-.time-node[data-debug-id="date-node"]:hover {
-  border-color: #1d4ed8 !important;
-  background: #eff6ff !important;
-  box-shadow: 
-    0 20px 25px -5px rgba(37, 99, 235, 0.1),
-    0 10px 10px -5px rgba(37, 99, 235, 0.04) !important;
+.time-node[data-debug-id="date-node"]:hover,
+.react-flow__node[data-id="date"] .time-node:hover {
+  border-color: #333333 !important;
+  background: #f9f9f9 !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1) !important;
   transform: translateY(-3px) scale(1.07) !important;
 }
 
@@ -106,12 +94,12 @@ div[data-id="date"] .time-node:hover,
 .node-label {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #000000;
   margin-bottom: 6px;
   font-family: var(--font-family-main);
   letter-spacing: var(--letter-spacing-normal);
   text-transform: uppercase;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #000000;
   padding-bottom: 4px;
   width: 100%;
 }
@@ -119,25 +107,25 @@ div[data-id="date"] .time-node:hover,
 /* Node values */
 .node-value {
   font-size: 1.1rem;
-  color: #2563eb;
+  color: #000000;
   font-weight: 500;
-  background: #eff6ff;
+  background: #ffffff;
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #dbeafe;
+  border: 1px solid #000000;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* Node subtitles */
 .node-subtitle {
-  color: #dc2626;
+  color: #000000;
   font-size: 0.95rem;
   font-weight: 500;
-  background: #fef2f2;
+  background: #ffffff;
   padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #fecaca;
+  border: 1px solid #000000;
   width: 100%;
   box-sizing: border-box;
 }
@@ -147,8 +135,8 @@ div[data-id="date"] .time-node:hover,
   position: absolute;
   width: 12px;
   height: 12px;
-  border: 2px solid #2563eb;
-  background: #eff6ff;
+  border: 2px solid #000000;
+  background: #ffffff;
   z-index: 15;
   border-radius: 2px;
 }
@@ -181,10 +169,10 @@ div[data-id="date"] .time-node:hover,
   border-top: none;
 }
 
-/* Website node corners use red color */
+/* Website node corners use same black color */
 .website-node .node-corner {
-  border-color: #dc2626;
-  background: #fef2f2;
+  border-color: #000000;
+  background: #ffffff;
 }
 
 /* Responsive adjustments */

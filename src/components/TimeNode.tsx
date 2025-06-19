@@ -69,7 +69,7 @@ export default function TimeNode({ data, id }: TimeNodeProps) {
         type="target" 
         position={Position.Top} 
         className="neon-handle"
-        style={{ background: '#ffffff', border: '2px solid #2563eb' }}
+        style={{ background: '#ffffff', border: '2px solid #000000' }}
       />
       
       <div className="node-content" data-debug-id={data.debugId || undefined}>
@@ -81,7 +81,7 @@ export default function TimeNode({ data, id }: TimeNodeProps) {
         type="source" 
         position={Position.Bottom} 
         className="neon-handle"
-        style={{ background: '#ffffff', border: '2px solid #2563eb' }}
+        style={{ background: '#ffffff', border: '2px solid #000000' }}
       />
     </div>
   );
