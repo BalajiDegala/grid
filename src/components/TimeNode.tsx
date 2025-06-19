@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Handle, Position } from '@xyflow/react';
 
@@ -53,21 +52,31 @@ export default function TimeNode({ data, id }: TimeNodeProps) {
     return () => clearInterval(interval);
   }, [data.type]);
 
-  // Add special class for date node
-  const nodeClass = id === 'date' ? 'time-node date-node' : 'time-node';
-
   return (
-    <div className={nodeClass} data-node-id={id} data-id={id}>
+    <div className="time-node" data-node-id={id} data-id={id}>
       <div className="node-corner top-left"></div>
       <div className="node-corner top-right"></div>
       <div className="node-corner bottom-left"></div>
       <div className="node-corner bottom-right"></div>
-      <Handle type="target" position={Position.Top} className="neon-handle" />
+      
+      <Handle 
+        type="target" 
+        position={Position.Top} 
+        className="neon-handle"
+        style={{ background: '#00d4ff', border: '2px solid #0099cc' }}
+      />
+      
       <div className="node-content" data-debug-id={data.debugId || undefined}>
         <div className="node-label">{data.label}</div>
         <div className="node-value">{timeValue}</div>
       </div>
-      <Handle type="source" position={Position.Bottom} className="neon-handle" />
+      
+      <Handle 
+        type="source" 
+        position={Position.Bottom} 
+        className="neon-handle"
+        style={{ background: '#00d4ff', border: '2px solid #0099cc' }}
+      />
     </div>
   );
 }

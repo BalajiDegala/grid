@@ -20,22 +20,22 @@ import CustomConnectionLine from './CustomConnectionLine';
 import { useSpaceKey } from '../hooks/useSpaceKey';
 import { WEBSITE_NODES, TIME_NODES, CONNECTIONS } from "@/config/nodeConfig";
 
-// Updated grid layout positions with better spacing for dark theme
+// Grid layout positions optimized for rectangular nodes
 const nodePositions = {
-  // 1st row, date node only
-  date:       { x: 400, y: 50 },
-  // 2nd row, day node with more vertical spacing
-  day:        { x: 400, y: 200 },
-  // 3rd row, two time nodes with more spacing
-  localTime:  { x: 200, y: 380 },
-  laTime:     { x: 600, y: 380 },
-  // 4th row, spread out website nodes horizontally with more spacing
-  node1:      { x: 40,  y: 580 },
-  node2:      { x: 200, y: 580 },
-  node3:      { x: 360, y: 580 },
-  node4:      { x: 520, y: 580 },
-  node5:      { x: 680, y: 580 },
-  node6:      { x: 840, y: 580 },
+  // 1st row - date node (top center)
+  date:       { x: 450, y: 80 },
+  // 2nd row - day node 
+  day:        { x: 450, y: 240 },
+  // 3rd row - time nodes (spread horizontally)
+  localTime:  { x: 250, y: 400 },
+  laTime:     { x: 650, y: 400 },
+  // 4th row - website nodes (bottom row, evenly spaced)
+  node1:      { x: 50,  y: 600 },
+  node2:      { x: 220, y: 600 },
+  node3:      { x: 390, y: 600 },
+  node4:      { x: 560, y: 600 },
+  node5:      { x: 730, y: 600 },
+  node6:      { x: 900, y: 600 },
 };
 
 const nodeTypes = {
@@ -57,6 +57,7 @@ function buildNodes() {
       zIndex: 15,
     }
   }));
+  
   WEBSITE_NODES.forEach(w => {
     nodes.push({
       id: w.id,
@@ -68,6 +69,7 @@ function buildNodes() {
       }
     });
   });
+  
   return nodes;
 }
 
@@ -123,10 +125,12 @@ export default function NodeGraph() {
   return (
     <div className="w-full h-screen z-[12] relative" style={{ background: '#0a0a0a' }}>
       {isDrawingMode && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-gray-900 text-blue-400 px-4 py-2 rounded-md border border-blue-500 shadow-lg">
-          Freeform Drawing Mode (Hold Space)
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 bg-gray-900 text-blue-400 px-6 py-3 rounded-lg border border-blue-500 shadow-lg">
+          <span className="font-semibold">🎨 Freeform Drawing Mode</span>
+          <span className="ml-2 text-sm opacity-75">(Hold Space)</span>
         </div>
       )}
+      
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -137,25 +141,51 @@ export default function NodeGraph() {
         edgeTypes={edgeTypes}
         connectionLineComponent={CustomConnectionLine}
         fitView
-        minZoom={0.3}
-        maxZoom={1.2}
+        fitViewOptions={{
+          padding: 0.1,
+          includeHiddenNodes: false,
+        }}
+        minZoom={0.4}
+        maxZoom={1.5}
         className="dark-flow"
         attributionPosition="top-right"
         style={{ background: '#0a0a0a' }}
       >
-        <Controls className="dark-controls" showZoom showFitView showInteractive={false} />
+        <Controls 
+          className="dark-controls" 
+          showZoom 
+          showFitView 
+          showInteractive={false}
+          style={{
+            background: '#1a1a1a',
+            border: '1px solid #00d4ff',
+            borderRadius: '8px',
+            boxShadow: '0 0 20px rgba(0, 212, 255, 0.3)'
+          }}
+        />
+        
         <MiniMap
           className="dark-minimap"
-          nodeColor={() => "#00d4ff"}
+          nodeColor={(node) => {
+            if (node.type === 'timeNode') return "#00d4ff";
+            return "#ff6b35";
+          }}
           maskColor="rgba(0,0,0,0.8)"
+          style={{
+            background: '#1a1a1a',
+            border: '1px solid #00d4ff',
+            borderRadius: '8px',
+            boxShadow: '0 0 20px rgba(0, 212, 255, 0.3)'
+          }}
         />
+        
         <Background
           variant={BackgroundVariant.Dots}
-          gap={60}
+          gap={80}
           size={2}
           color="#00d4ff"
           className="dark-background"
-          style={{ opacity: 0.3 }}
+          style={{ opacity: 0.2 }}
         />
       </ReactFlow>
     </div>
